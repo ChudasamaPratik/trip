@@ -7,8 +7,7 @@
                         data-cfemail="">abc@yourdomain.com</a></p>
             </div>
             <div class="login-btn pull-right">
-                <a href="user-login.php"><i class="fa fa-user-plus"></i> User Login</a>
-                <a href="agent-login.php"><i class="fa fa-user-secret"></i> Agent Login</a>
+                <a href="{{ route('login') }}"><i class="fa fa-user-plus"></i> Login</a>
             </div>
         </div>
     </div>
