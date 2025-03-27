@@ -13,13 +13,13 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}">
     <script async src="{{ asset('frontend/js/invisible.js') }}"></script>
     <script src="https://www.google.com/recaptcha/api.js') }}"></script>
-  
+
     @stack('styles')
 </head>
 
 <body>
-    <div id="preloader">
-        <div id="status"></div>
+    <div id="preloader1">
+        <div id="status1"></div>
     </div>
     @include('frontend.includes.header')
 
