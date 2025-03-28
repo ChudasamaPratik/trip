@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -28,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -49,9 +51,11 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255', 'min:2'],
+            'last_name' => ['required', 'string', 'max:255', 'min:2'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role' => ['required', 'string', 'in:user,agent'],
         ]);
     }
 
@@ -63,10 +67,34 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
+        $user = User::create([
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'last_login_at' => now(),
         ]);
+
+        // Assign role based on selection
+        $role = Role::where('name', $data['role'])->first();
+        if ($role) {
+            $user->assignRole($role);
+        }
+
+        return $user;
+    }
+
+
+    protected function registered(Request $request, $user)
+    {
+        if ($user->hasRole('admin')) {
+            return redirect()->route('admin.dashboard');
+        } elseif ($user->hasRole('user')) {
+            return redirect()->route('user.dashboard');
+        } elseif ($user->hasRole('agent')) {
+            return redirect()->route('agent.dashboard');
+        }
+
+        return redirect($this->redirectTo);
     }
 }
