@@ -38,5 +38,13 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::get('/admin', function () {
-    return view('backend.pages.dashboard');
-});
+    return view('backend.pages.admin_dashboard');
+})->name('admin.dashboard');
+
+Route::get('/user', function () {
+    return view('backend.pages.user_dashboard');
+})->name('user.dashboard');
+
+Route::get('/agent', function () {
+    return view('backend.pages.agent_dashboard');
+})->name('agent.dashboard');

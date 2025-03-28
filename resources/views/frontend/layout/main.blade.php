@@ -2,7 +2,7 @@
 <html lang="zxx">
 
 <head>
-    <title>BidmyTrip</title>
+    <title>@yield('title') | BidMyTrip</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend/images/logo1.png') }}">

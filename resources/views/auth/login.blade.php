@@ -51,28 +51,13 @@
                         </div>
                         <form id="loginForm" method="POST" action="{{ route('login') }}">
                             @csrf
-                            <div class="select-role">
-                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                    <label class="btn active">
-                                        <input type="radio" name="role" id="user" checked />
-                                        <div class="icon">
-                                            <img src="{{ asset('backend/vendors/images/briefcase.svg') }}"
-                                                class="svg" alt="" />
-                                        </div>
-                                        <span>I'm</span>
-                                        User
-                                    </label>
-                                    <label class="btn">
-                                        <input type="radio" name="role" id="agent" />
-                                        <div class="icon">
-                                            <img src="{{ asset('backend/vendors/images/person.svg') }}" class="svg"
-                                                alt="" />
-                                        </div>
-                                        <span>I'm</span>
-                                        Agent
-                                    </label>
+                            <div class="text-danger small mt-1 mb-3" id="role-error"></div>
+                            @error('role')
+                                <div class="text-danger small mt-1 mb-3" role="alert">
+                                    <strong>{{ $message }}</strong>
                                 </div>
-                            </div>
+                            @enderror
+
                             <div class="input-group custom mb-0">
                                 <input type="text" class="form-control form-control-lg" id="email" name="email"
                                     placeholder="Email" />
@@ -101,11 +86,11 @@
                             @enderror
                             <div class="row pb-30">
                                 <div class="col-6">
-                                    {{-- <div class="custom-control custom-checkbox">
+                                    <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="remember"
                                             name="remember" />
                                         <label class="custom-control-label" for="remember">Remember</label>
-                                    </div> --}}
+                                    </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="forgot-password">
@@ -128,7 +113,8 @@
                                     OR
                                 </div>
                                 <div class="input-group mb-0">
-                                    <a class="btn btn-outline-primary btn-lg btn-block" href="{{ route('register') }}">Register
+                                    <a class="btn btn-outline-primary btn-lg btn-block"
+                                        href="{{ route('register') }}">Register
                                         To Create Account</a>
                                 </div>
                             </div>
@@ -171,7 +157,7 @@
                         minlength: "Your password must be at least 6 characters long"
                     }
                 },
-                errprElement: 'span',
+                errorElement: 'span',
                 errorPlacement: function(error, element) {
                     var elementId = element.attr("id");
                     $("#" + elementId + "-error").html(error);

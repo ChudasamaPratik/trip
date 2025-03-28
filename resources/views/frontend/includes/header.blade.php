@@ -6,8 +6,29 @@
                 <p><i class="flaticon-mail"></i> Mail: <a href="abc@yourdomain.com" class="__cf_email__ text-white"
                         data-cfemail="">abc@yourdomain.com</a></p>
             </div>
-            <div class="login-btn pull-right">
-                <a href="{{ route('login') }}"><i class="fa fa-user-plus"></i> Login</a>
+            <div class="auth-buttons float-right">
+                @auth
+                    @if (auth()->user()->hasRole('admin'))
+                        <a href="{{ route('admin.dashboard') }}" class="dashboard-btn  text-white">
+                            <i class="fa fa-cogs"></i> Admin Dashboard
+                        </a>
+                    @elseif(auth()->user()->hasRole('agent'))
+                        <a href="{{ route('agent.dashboard') }}" class="dashboard-btn  text-white">
+                            <i class="fa fa-headset"></i> Agent Dashboard
+                        </a>
+                    @else
+                        <a href="{{ route('user.dashboard') }}" class="dashboard-btn  text-white">
+                            <i class="fa fa-user-circle"></i> Dashboard
+                        </a>
+                    @endif
+                @else
+                    <a href="{{ route('login') }}" class="login-btn  text-white mr-2">
+                        <i class="fa fa-sign-in"></i> Login
+                    </a>
+                    <a href="{{ route('register') }}" class="register-btn  text-white">
+                        <i class="fa fa-user-plus"></i> Register
+                    </a>
+                @endauth
             </div>
         </div>
     </div>
