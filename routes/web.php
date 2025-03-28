@@ -30,3 +30,7 @@ Route::get('/faq', function () {
 Route::get('/contact-us', function () {
     return view('frontend.pages.contact-us');
 })->name('contact-us');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
