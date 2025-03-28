@@ -1,5 +1,7 @@
 <?php
 
+
+use App\Http\Controllers\Backend\SliderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,14 +39,40 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::get('/admin', function () {
+Route::get('/admin/dashboard', function () {
     return view('backend.pages.admin_dashboard');
 })->name('admin.dashboard');
 
-Route::get('/user', function () {
+Route::get('/user/dashboard', function () {
     return view('backend.pages.user_dashboard');
 })->name('user.dashboard');
 
-Route::get('/agent', function () {
+Route::get('/agent/dashboard', function () {
     return view('backend.pages.agent_dashboard');
 })->name('agent.dashboard');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::prefix('admin')->group(function () {
+    //Slider
+    Route::get('slider', [SliderController::class, 'sliderIndex'])->name('slider.index');
+    Route::get('slider/create', [SliderController::class, 'sliderCreate'])->name('slider.create');
+    Route::post('slider/', [SliderController::class, 'sliderStore'])->name('slider.store');
+    Route::get('slider/{id}/edit', [SliderController::class, 'sliderEdit'])->name('slider.edit');
+    Route::put('slider/{id}', [SliderController::class, 'sliderUpdate'])->name('slider.update');
+    Route::delete('slider/{id}/delete', [SliderController::class, 'sliderDelete'])->name('slider.delete');
+    Route::post('slider/change-status/{id}', [SliderController::class, 'changeStatus'])->name('slider.change.status');
+});
