@@ -58,6 +58,7 @@
     </div>
 
     <!-- js -->
+    <script src="{{ asset('lib/jquery-3.6.2.js') }}"></script>
     <script src="{{ asset('backend/vendors/scripts/core.js') }}"></script>
     <script src="{{ asset('backend/vendors/scripts/script.min.js') }}"></script>
     <script src="{{ asset('backend/vendors/scripts/process.js') }}"></script>
