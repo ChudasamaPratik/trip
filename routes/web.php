@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\FeaturedDestinationController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SliderController;
@@ -70,7 +71,6 @@ Route::get('/agent/dashboard', function () {
 Route::prefix('admin')->group(function () {
     //Permission
     Route::resource('permissions', PermissionController::class)->only(['index', 'store', 'update']);
-
     //Role
     Route::resource('roles', RoleController::class)->only(['index', 'store', 'update']);
 
@@ -82,4 +82,8 @@ Route::prefix('admin')->group(function () {
     Route::put('slider/{id}', [SliderController::class, 'sliderUpdate'])->name('slider.update');
     Route::delete('slider/{id}/delete', [SliderController::class, 'sliderDelete'])->name('slider.delete');
     Route::post('slider/change-status/{id}', [SliderController::class, 'changeStatus'])->name('slider.change.status');
+
+
+    // Destination
+    Route::resource('featured-destination',FeaturedDestinationController::class);
 });

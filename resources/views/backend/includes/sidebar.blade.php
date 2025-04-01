@@ -17,7 +17,7 @@
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ route('slider.index') }}">Slider</a></li>
-                        <li><a href="index2.html">Featured Destinations</a></li>
+                        <li><a href="{{ route('featured-destination.index') }}">Featured Destinations</a></li>
                         <li><a href="index3.html">Dashboard style 3</a></li>
                     </ul>
                 </li>
