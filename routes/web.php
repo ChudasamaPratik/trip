@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SliderController;
@@ -82,4 +83,13 @@ Route::prefix('admin')->group(function () {
     Route::put('slider/{id}', [SliderController::class, 'sliderUpdate'])->name('slider.update');
     Route::delete('slider/{id}/delete', [SliderController::class, 'sliderDelete'])->name('slider.delete');
     Route::post('slider/change-status/{id}', [SliderController::class, 'changeStatus'])->name('slider.change.status');
+
+    //About
+    Route::get('about', [AboutController::class, 'index'])->name('about.index');
+    Route::get('about/create', [AboutController::class, 'Create'])->name('about.create');
+    Route::post('about/', [AboutController::class, 'Store'])->name('about.store');
+    Route::get('about/{id}/edit', [AboutController::class, 'edit'])->name('about.edit');
+    Route::put('about/{id}', [AboutController::class, 'update'])->name('about.update');
+    Route::delete('about/{id}/delete', [AboutController::class, 'delete'])->name('about.delete');
+    Route::post('about/change-status/{id}', [AboutController::class, 'changeStatus'])->name('about.change.status');
 });
