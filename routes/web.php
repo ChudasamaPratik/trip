@@ -1,6 +1,7 @@
 <?php
 
-
+use App\Http\Controllers\Backend\PermissionController;
+use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SliderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -67,6 +68,12 @@ Route::get('/agent/dashboard', function () {
 
 
 Route::prefix('admin')->group(function () {
+    //Permission
+    Route::resource('permissions', PermissionController::class)->only(['index', 'store', 'update']);
+
+    //Role
+    Route::resource('roles', RoleController::class)->only(['index', 'store', 'update']);
+
     //Slider
     Route::get('slider', [SliderController::class, 'sliderIndex'])->name('slider.index');
     Route::get('slider/create', [SliderController::class, 'sliderCreate'])->name('slider.create');
