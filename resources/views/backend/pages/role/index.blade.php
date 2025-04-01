@@ -1,17 +1,17 @@
 @extends('backend.layout.main')
 @section('title', 'Roles')
 @section('content')
-    <div class="min-height-200px">
+    <div class="min-height-200px ">
         <div class="page-header">
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <div class="title">
-                        <h4>Role & Permission</h4>
+                        <h4>Role</h4>
                     </div>
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="#">Role Permission</a>
+                                <a href="#">Role & Permission</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
                                 Role
@@ -28,31 +28,23 @@
                 </div>
             </div>
         </div>
-        <section class="section">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title d-flex justify-content-between">
-                                <h5>Roles List</h5>
-                            </div>
 
-                            <table class="table datatable datatable-table" id="role-table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Role Name</th>
-                                        <th scope="col">Permissions</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-        </section>
+        <div class="card-box mb-30">
+            <div class="pb-20 pt-3 p-auto">
+                <table class="slider-table table stripe hover nowrap" id="role-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Role Name</th>
+                            <th scope="col">Permissions</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
         <!-- Role Modal -->
         <div class="modal fade" id="roleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
