@@ -17,8 +17,23 @@
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ route('slider.index') }}">Slider</a></li>
-                        <li><a href="index2.html">Dashboard style 2</a></li>
+                        <li><a href="index2.html">Featured Destinations</a></li>
                         <li><a href="index3.html">Dashboard style 3</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon bi bi-shield-lock"></span>
+                        <span class="mtext">Role & Permission</span>
+                    </a>
+                    <ul class="submenu">
+                        <li>
+                            <a href="{{ route('roles.index') }}"> Role</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('permissions.index') }}">Permission
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li>

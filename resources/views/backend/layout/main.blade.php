@@ -29,7 +29,8 @@
     {{-- sweet alert --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/src/plugins/sweetalert2/sweetalert2.css') }}" />
 
-
+    {{-- Toaster --}}
+    <link rel="stylesheet" href="{{ asset('lib/toaster/toastr.min.css') }}">
 </head>
 
 <body>
@@ -72,7 +73,16 @@
     <script src="{{ asset('lib/jquery_validate/jquery.validate.js') }}"></script>
     {{-- Sweet alert --}}
     <script src="{{ asset('backend/src/plugins/sweetalert2/sweetalert2.all.js') }}"></script>
-
+    {{-- Toaster --}}
+    <script src="{{ asset('lib/toaster/toastr.min.js') }}"></script>
+    <script>
+        @if (Session::has('success'))
+            toastr.success("{{ Session::get('success') }}");
+        @endif
+        @if (Session::has('error'))
+            toastr.error("{{ Session::get('error') }}");
+        @endif
+    </script>
 
 
     <script>
