@@ -230,16 +230,14 @@
                         extension: "jpg|jpeg|png|gif"
                     },
                     description1: {
-                        summernoteNotEmpty: true,
-                        
+                        summernoteNotEmpty: true
                     },
                     image1: {
                         required: true,
                         extension: "jpg|jpeg|png|gif"
                     },
                     description2: {
-                        summernoteNotEmpty: true,
-                        
+                        summernoteNotEmpty: true
                     },
                     image2: {
                         required: true,
@@ -257,14 +255,14 @@
                         extension: "Please select a valid image file (jpg, jpeg, png, or gif)"
                     },
                     description1: {
-                        summernoteNotEmpty: "Please enter the first description",
+                        summernoteNotEmpty: "Please enter the first description"
                     },
                     image1: {
                         required: "Please select the first image",
                         extension: "Please select a valid image file (jpg, jpeg, png, or gif)"
                     },
                     description2: {
-                        summernoteNotEmpty: "Please enter the second description",
+                        summernoteNotEmpty: "Please enter the second description"
                     },
                     image2: {
                         required: "Please select the second image",

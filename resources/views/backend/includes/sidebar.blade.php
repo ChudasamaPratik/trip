@@ -21,6 +21,17 @@
                         <li><a href="{{ route('featured-destination.index') }}">Featured Destinations</a></li>
                         <li><a href="{{ route('about.index') }}"> About us Page</a></li>
                         <li><a href="{{ route('auction.index') }}"> Auction Page</a></li>
+                        <li class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle">
+                                <span class="micon fa fa-plane"></span><span class="mtext">Tips & Travels</span>
+                            </a>
+                            <ul class="submenu child">
+                                <li><a href="{{ route('tips-and-travels.index') }}"> Tips & Travels Page</a></li>
+                                <li><a href="javascript:;"> Tips & Travels Comment </a></li>
+                            </ul>
+                        </li>
+                        <li><a href="{{ route('blog.index') }}"> Blog</a></li>
+
                     </ul>
                 </li>
                 <li class="dropdown">
