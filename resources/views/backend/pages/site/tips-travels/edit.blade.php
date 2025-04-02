@@ -1,5 +1,5 @@
 @extends('backend.layout.main')
-@section('title', 'Create Tips & Travels')
+@section('title', 'Edit Tips & Travels')
 
 @push('styles')
     <link href="{{ asset('backend/lib/summernote/summernote-lite.css') }}" rel="stylesheet">
@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <div class="title">
-                        <h4>Create Tips & Travels</h4>
+                        <h4>Edit Tips & Travels</h4>
                     </div>
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
@@ -22,7 +22,7 @@
                                 <a href="{{ route('tips-and-travels.index') }}">Tips & Travels</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Create Tips & Travels
+                                Edit Tips & Travels
                             </li>
                         </ol>
                     </nav>
@@ -43,14 +43,15 @@
                     <h4 class="text-blue h4">Tips & Travels Information</h4>
                 </div>
             </div>
-            <form method="POST" action="{{ route('tips-and-travels.store') }}" enctype="multipart/form-data"
+            <form method="POST" action="{{ route('tips-and-travels.update', $tipsTravel->id) }}" enctype="multipart/form-data"
                 id="tipsForm">
                 @csrf
+                @method('PUT')
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Place Name <span class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
                         <input class="form-control @error('place_name') is-invalid @enderror" name="place_name" type="text"
-                            placeholder="Enter place name" value="{{ old('place_name') }}" />
+                            placeholder="Enter place name" value="{{ old('place_name', $tipsTravel->place_name) }}" />
                         @error('place_name')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -60,7 +61,7 @@
                 </div>
                 
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Thumbnail <span class="text-danger">*</span></label>
+                    <label class="col-sm-12 col-md-2 col-form-label">Thumbnail</label>
                     <div class="col-sm-12 col-md-10">
                         <div class="custom-file">
                             <input type="file" class="custom-file-input @error('thumbnail') is-invalid @enderror"
@@ -73,9 +74,9 @@
                                 {{ $message }}
                             </div>
                         @enderror
-                        <div class="mt-3" id="thumbnailPreviewContainer" style="display: none;">
-                            <img id="thumbnailPreview" src="#" alt="Thumbnail Preview" class="img-thumbnail"
-                                style="max-height: 200px;">
+                        <div class="mt-3" id="thumbnailPreviewContainer" style="{{ $tipsTravel->image ? '' : 'display: none;' }}">
+                            <img id="thumbnailPreview" src="{{ $tipsTravel->image ? $tipsTravel->thumbnail_url : '#' }}" 
+                                alt="Thumbnail Preview" class="img-thumbnail" style="max-height: 200px;">
                         </div>
                     </div>
                 </div>
@@ -84,7 +85,7 @@
                     <label class="col-sm-12 col-md-2 col-form-label">Description 1 <span class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
                         <textarea id="description1" class="form-control summernote @error('description1') is-invalid @enderror" name="description1"
-                            placeholder="Enter first description" rows="5">{{ old('description1') }}</textarea>
+                            placeholder="Enter first description" rows="5">{{ old('description1', $tipsTravel->description1) }}</textarea>
                         @error('description1')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -94,7 +95,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Image 1 <span class="text-danger">*</span></label>
+                    <label class="col-sm-12 col-md-2 col-form-label">Image 1</label>
                     <div class="col-sm-12 col-md-10">
                         <div class="custom-file">
                             <input type="file" class="custom-file-input @error('image1') is-invalid @enderror"
@@ -107,9 +108,9 @@
                                 {{ $message }}
                             </div>
                         @enderror
-                        <div class="mt-3" id="image1PreviewContainer" style="display: none;">
-                            <img id="image1Preview" src="#" alt="Image 1 Preview" class="img-thumbnail"
-                                style="max-height: 300px;">
+                        <div class="mt-3" id="image1PreviewContainer" style="{{ $tipsTravel->image1 ? '' : 'display: none;' }}">
+                            <img id="image1Preview" src="{{ $tipsTravel->image1 ? $tipsTravel->image1_url : '#' }}" 
+                                alt="Image 1 Preview" class="img-thumbnail" style="max-height: 300px;">
                         </div>
                     </div>
                 </div>
@@ -118,7 +119,7 @@
                     <label class="col-sm-12 col-md-2 col-form-label">Description 2 <span class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
                         <textarea id="description2" class="form-control summernote @error('description2') is-invalid @enderror" name="description2"
-                            placeholder="Enter second description" rows="5">{{ old('description2') }}</textarea>
+                            placeholder="Enter second description" rows="5">{{ old('description2', $tipsTravel->description2) }}</textarea>
                         @error('description2')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -128,7 +129,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Image 2 <span class="text-danger">*</span></label>
+                    <label class="col-sm-12 col-md-2 col-form-label">Image 2</label>
                     <div class="col-sm-12 col-md-10">
                         <div class="custom-file">
                             <input type="file" class="custom-file-input @error('image2') is-invalid @enderror"
@@ -141,9 +142,9 @@
                                 {{ $message }}
                             </div>
                         @enderror
-                        <div class="mt-3" id="image2PreviewContainer" style="display: none;">
-                            <img id="image2Preview" src="#" alt="Image 2 Preview" class="img-thumbnail"
-                                style="max-height: 300px;">
+                        <div class="mt-3" id="image2PreviewContainer" style="{{ $tipsTravel->image2 ? '' : 'display: none;' }}">
+                            <img id="image2Preview" src="{{ $tipsTravel->image2 ? $tipsTravel->image2_url : '#' }}" 
+                                alt="Image 2 Preview" class="img-thumbnail" style="max-height: 300px;">
                         </div>
                     </div>
                 </div>
@@ -151,7 +152,7 @@
                 <div class="form-group row">
                     <div class="col-sm-12 col-md-10 offset-md-2">
                         <button type="submit" class="btn btn-primary">
-                            <i class="fa fa-save"></i> Save Tips & Travels
+                            <i class="fa fa-save"></i> Update Tips & Travels
                         </button>
                     </div>
                 </div>
@@ -210,9 +211,11 @@
 
                     reader.readAsDataURL(input.files[0]);
                 } else {
-                    preview.attr('src', '');
-                    container.hide();
-                    fileLabel.text('Choose file');
+                    // Don't clear the preview on edit page if no new file selected
+                    if (!preview.attr('src') || preview.attr('src') === '#') {
+                        container.hide();
+                        fileLabel.text('Choose file');
+                    }
                 }
             }
 
@@ -225,24 +228,19 @@
                         minlength: 3,
                         maxlength: 100
                     },
-                    thumbnail: {
-                        required: true,
-                        extension: "jpg|jpeg|png|gif"
-                    },
                     description1: {
-                        summernoteNotEmpty: true,
-                        
-                    },
-                    image1: {
-                        required: true,
-                        extension: "jpg|jpeg|png|gif"
+                        summernoteNotEmpty: true
                     },
                     description2: {
-                        summernoteNotEmpty: true,
-                        
+                        summernoteNotEmpty: true
+                    },
+                    thumbnail: {
+                        extension: "jpg|jpeg|png|gif"
+                    },
+                    image1: {
+                        extension: "jpg|jpeg|png|gif"
                     },
                     image2: {
-                        required: true,
                         extension: "jpg|jpeg|png|gif"
                     }
                 },
@@ -252,22 +250,19 @@
                         minlength: "Place name must be at least 3 characters long",
                         maxlength: "Place name cannot be more than 100 characters long"
                     },
-                    thumbnail: {
-                        required: "Please select a thumbnail image",
-                        extension: "Please select a valid image file (jpg, jpeg, png, or gif)"
-                    },
                     description1: {
-                        summernoteNotEmpty: "Please enter the first description",
-                    },
-                    image1: {
-                        required: "Please select the first image",
-                        extension: "Please select a valid image file (jpg, jpeg, png, or gif)"
+                        summernoteNotEmpty: "Please enter the first description"
                     },
                     description2: {
-                        summernoteNotEmpty: "Please enter the second description",
+                        summernoteNotEmpty: "Please enter the second description"
+                    },
+                    thumbnail: {
+                        extension: "Please select a valid image file (jpg, jpeg, png, or gif)"
+                    },
+                    image1: {
+                        extension: "Please select a valid image file (jpg, jpeg, png, or gif)"
                     },
                     image2: {
-                        required: "Please select the second image",
                         extension: "Please select a valid image file (jpg, jpeg, png, or gif)"
                     }
                 },

@@ -3,11 +3,13 @@
 
 use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\Backend\AuctionController;
+use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\FeaturedDestinationController;
 use App\Http\Controllers\Backend\HomeBannerController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SliderController;
+use App\Http\Controllers\Backend\TipsAndTravelsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -109,4 +111,12 @@ Route::prefix('admin')->group(function () {
     // Home Banner
     Route::resource('home-banner', HomeBannerController::class);
     Route::post('home-banner/change-status/{id}', [HomeBannerController::class, 'changeStatus'])->name('home-banner.change.status');
+
+    // tips & travels   tips-and-travels.show
+    Route::resource('tips-and-travels', TipsAndTravelsController::class);
+    Route::post('tips-and-travels/change-status/{id}', [TipsAndTravelsController::class, 'changeStatus'])->name('tips-and-travels.change.status');
+
+    //Blog
+    Route::resource('blog', BlogController::class);
+    Route::post('blog/change-status/{id}', [BlogController::class, 'changeStatus'])->name('blog.change.status');
 });
