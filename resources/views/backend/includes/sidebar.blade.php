@@ -18,7 +18,8 @@
                     <ul class="submenu">
                         <li><a href="{{ route('slider.index') }}">Slider</a></li>
                         <li><a href="{{ route('featured-destination.index') }}">Featured Destinations</a></li>
-                        <li><a href="index3.html">Dashboard style 3</a></li>
+                        <li><a href="{{ route('about.index') }}"> Manage About us Page</a></li>
+                        <li><a href="{{ route('auction.index') }}"> Manage Auction Page</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -34,21 +35,6 @@
                             <a href="{{ route('permissions.index') }}">Permission
                             </a>
                         </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon bi bi-shield-lock"></span>
-                        <span class="mtext">Manage About us</span>
-                    </a>
-                    <ul class="submenu">
-                        <li>
-                            <a href="{{ route('about.index') }}"> About</a>
-                        </li>
-                        {{-- <li>
-                            <a href="{{ route('permissions.index') }}">Permission
-                            </a>
-                        </li> --}}
                     </ul>
                 </li>
                 <li>

@@ -44,7 +44,7 @@ class AboutController extends Controller
                     ->rawColumns(['image', 'action', 'status_switch'])
                     ->make(true);
             }
-            return view('backend.pages.about.index');
+            return view('backend.pages.site.about.index');
         } catch (\Exception $e) {
             return redirect()->route('about.index')->with('error', 'Something went wrong');
         }
@@ -55,7 +55,7 @@ class AboutController extends Controller
     public function create()
     {
         try {
-            return view('backend.pages.about.create');
+            return view('backend.pages.site.about.create');
         } catch (\Exception $e) {
             return redirect()->route('about.index')->with('error', 'Something went wrong');
         }
@@ -107,7 +107,7 @@ class AboutController extends Controller
     {
         try {
             $slider = AboutSection::find($id);
-            return view('backend.pages.about.edit', compact('slider'));
+            return view('backend.pages.site.about.edit', compact('slider'));
         } catch (\Exception $e) {
             return redirect()->route('about.index')->with('error', 'Something went wrong');
         }
