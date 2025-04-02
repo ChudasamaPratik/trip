@@ -216,9 +216,11 @@
             });
             $('#roleModal').on('hidden.bs.modal', function() {
                 $('#roleForm')[0].reset();
-                $('#roleForm').validate().resetForm();
-                $('#roleForm').find('.is-invalid, .invalid-feedback, .text-danger').removeClass(
-                    'is-invalid invalid-feedback text-danger');
+                // $('#roleForm').validate().resetForm();
+                // $('#roleForm').find('.is-invalid, .invalid-feedback, .text-danger')
+                //     .removeClass('is-invalid invalid-feedback text-danger')
+                //     .text('');
+
                 $('#roleModal .modal-title').text('Add Permission');
                 $('#saveChanges').text('Save changes');
                 $('#roleModal').removeData('roleId');

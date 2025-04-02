@@ -36,6 +36,21 @@
                         </li>
                     </ul>
                 </li>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon bi bi-shield-lock"></span>
+                        <span class="mtext">Manage About us</span>
+                    </a>
+                    <ul class="submenu">
+                        <li>
+                            <a href="{{ route('about.index') }}"> About</a>
+                        </li>
+                        {{-- <li>
+                            <a href="{{ route('permissions.index') }}">Permission
+                            </a>
+                        </li> --}}
+                    </ul>
+                </li>
                 <li>
                     <a href="calendar.html" class="dropdown-toggle no-arrow">
                         <span class="micon bi bi-calendar4-week"></span><span class="mtext">Calendar</span>
