@@ -17,9 +17,10 @@
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ route('slider.index') }}">Slider</a></li>
+                        <li><a href="{{ route('home-banner.index') }}">Home Banner</a></li>
                         <li><a href="{{ route('featured-destination.index') }}">Featured Destinations</a></li>
-                        <li><a href="{{ route('about.index') }}"> Manage About us Page</a></li>
-                        <li><a href="{{ route('auction.index') }}"> Manage Auction Page</a></li>
+                        <li><a href="{{ route('about.index') }}"> About us Page</a></li>
+                        <li><a href="{{ route('auction.index') }}"> Auction Page</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">

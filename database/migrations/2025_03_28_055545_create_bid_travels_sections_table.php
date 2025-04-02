@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('bid_travels_sections', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('main_title');
             $table->string('title');
             $table->string('description');

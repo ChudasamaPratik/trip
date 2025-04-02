@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('footers', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->text('description');
             $table->text('declaimer_description');
             $table->text('t&c_description');

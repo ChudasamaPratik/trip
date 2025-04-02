@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('testimonials', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('rating');
             $table->string('first_name');
             $table->string('last_name');
