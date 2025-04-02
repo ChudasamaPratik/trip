@@ -4,6 +4,7 @@
 use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\Backend\AuctionController;
 use App\Http\Controllers\Backend\FeaturedDestinationController;
+use App\Http\Controllers\Backend\HomeBannerController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SliderController;
@@ -99,10 +100,16 @@ Route::prefix('admin')->group(function () {
 
     // Destination
     Route::resource('featured-destination', FeaturedDestinationController::class);
+
     Route::post('slider/change-status/{id}', [FeaturedDestinationController::class, 'changeStatus'])->name('featured-destination.status');
+
+    Route::post('featured-destination/change-status/{id}', [FeaturedDestinationController::class, 'changeStatus'])->name('featured-destination.status');
 
     // Auction
     Route::resource('auction', AuctionController::class);
-    Route::post('auction/change-status/{id}', [AuctionController::class, 'changeStatus'])->name('auction.status');
+    Route::post('auction/change-status/{id}', [AuctionController::class, 'changeStatus'])->name('auction.change.status');
 
+    // Home Banner
+    Route::resource('home-banner', HomeBannerController::class);
+    Route::post('home-banner/change-status/{id}', [HomeBannerController::class, 'changeStatus'])->name('home-banner.change.status');
 });
