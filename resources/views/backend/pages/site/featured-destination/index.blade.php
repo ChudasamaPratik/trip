@@ -41,6 +41,7 @@
                             <th>Tour</th>
                             <th>Activities</th>
                             <th>image</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -70,8 +71,8 @@
                         name: 'name'
                     },
                     {
-                        data: 'hotel_name',
-                        name: 'hotel_name',
+                        data: 'hotel',
+                        name: 'hotel',
                     },
                     {
                         data: 'rental',
@@ -88,6 +89,10 @@
                     {
                         data: 'image',
                         name: 'image',
+                    },
+                    {
+                        data: 'status_switch',
+                        name: 'status_switch',
                     },
                     {
                         data: 'action',

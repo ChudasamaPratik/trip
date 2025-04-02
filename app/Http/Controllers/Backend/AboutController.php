@@ -62,7 +62,6 @@ class AboutController extends Controller
     }
     public function Store(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'main_title' => 'required|string|min:3|max:100',
             'title' => 'required|string|min:3|max:100',
@@ -90,11 +89,11 @@ class AboutController extends Controller
             $image->storeAs('aboutSection', $imageName, 'public');
 
             $about = new AboutSection();
+            $about->id = Str::uuid();
             $about->main_title = $request->main_title;
             $about->title = $request->title;
             $about->description = $request->description;
             $about->image = $imageName;
-            // dd($about);
             $about->save();
 
             return redirect()->route('about.index')->with('success', 'About created successfully');

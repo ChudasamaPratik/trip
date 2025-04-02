@@ -99,7 +99,5 @@ Route::prefix('admin')->group(function () {
 
     // Destination
     Route::resource('featured-destination', FeaturedDestinationController::class);
-
-    //Auction
-    Route::resource('auction', AuctionController::class);
+    Route::post('slider/change-status/{id}', [FeaturedDestinationController::class, 'changeStatus'])->name('featured-destination.status');
 });

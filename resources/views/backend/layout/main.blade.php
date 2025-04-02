@@ -31,6 +31,7 @@
 
     {{-- Toaster --}}
     <link rel="stylesheet" href="{{ asset('lib/toaster/toastr.min.css') }}">
+    @stack('styles')
 </head>
 
 <body>
@@ -102,7 +103,6 @@
                     swal({
                         title: 'Are you sure?',
                         text: 'You are about to change the status!',
-                        icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
@@ -124,7 +124,6 @@
                                         swal({
                                             title: 'Success',
                                             text: response.message,
-                                            icon: 'success'
                                         });
                                     } else {
                                         // Revert checkbox if server returns error
@@ -133,7 +132,6 @@
                                         swal({
                                             title: 'Error',
                                             text: response.message,
-                                            icon: 'error'
                                         });
                                     }
                                 },
