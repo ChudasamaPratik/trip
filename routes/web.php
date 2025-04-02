@@ -96,12 +96,15 @@ Route::prefix('admin')->group(function () {
     Route::post('about/', [AboutController::class, 'Store'])->name('about.store');
     Route::get('about/{id}/edit', [AboutController::class, 'edit'])->name('about.edit');
     Route::put('about/{id}', [AboutController::class, 'update'])->name('about.update');
-    Route::delete('about/{id}/delete', [AboutController::class, 'delete'])->name('about.delete');
+    Route::delete('about/{id}/delete', [AboutController::class, 'delete'])->name('about.destroy');
     Route::post('about/change-status/{id}', [AboutController::class, 'changeStatus'])->name('about.change.status');
 
 
     // Destination
     Route::resource('featured-destination', FeaturedDestinationController::class);
+
+    Route::post('slider/change-status/{id}', [FeaturedDestinationController::class, 'changeStatus'])->name('featured-destination.status');
+
     Route::post('featured-destination/change-status/{id}', [FeaturedDestinationController::class, 'changeStatus'])->name('featured-destination.status');
 
     // Auction

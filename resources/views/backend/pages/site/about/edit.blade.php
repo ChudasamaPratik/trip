@@ -1,5 +1,8 @@
 @extends('backend.layout.main')
 @section('title', 'Edit About')
+@push('styles')
+    <link href="{{ asset('backend/lib/summernote/summernote-lite.css') }}" rel="stylesheet">
+@endpush
 @section('content')
     <div class="min-height-200px">
         <div class="page-header">
@@ -24,7 +27,7 @@
                 </div>
                 <div class="col-md-6 col-sm-12 text-right">
                     <div class="dropdown">
-                        <a class="btn btn-secondary" href="{{ route('slider.index') }}">
+                        <a class="btn btn-secondary" href="{{ route('about.index') }}">
                             <i class="fa fa-list"></i> Back to List
                         </a>
                     </div>
@@ -68,10 +71,11 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Description</label>
+                    <label class="col-sm-12 col-md-2 col-form-label">Description <span class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
-                        <textarea class="form-control @error('description') is-invalid @enderror" name="description"
-                            placeholder="Enter About description">{{ old('description', $slider->description) }}</textarea>
+                        <textarea id="summernote" class="form-control summernote @error('description') is-invalid @enderror" name="description"
+                            placeholder="Enter destination description" rows="5">{{ old('description', $slider->description) }}</textarea>
+                        <div id="description-error" class="text-danger" style="display: none;"></div>
                         @error('description')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -119,8 +123,22 @@
 @endsection
 
 @push('scripts')
+    <script src="{{ asset('backend/lib/summernote/summernote.js') }}"></script>
     <script>
         $(document).ready(function() {
+            $('#summernote').summernote({
+                tabsize: 2,
+                height: 120,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
             // Image preview functionality
             $("#aboutImage").change(function() {
                 var preview = $("#imagePreview");
@@ -146,6 +164,7 @@
 
             // Form validation
             $("#aboutForm").validate({
+                ignore: [],
                 rules: {
                     main_title: {
                         required: true,
@@ -158,6 +177,7 @@
                         maxlength: 100
                     },
                     description: {
+                        summernoteNotEmpty: true,
                         maxlength: 1000
                     },
                     image: {
@@ -176,6 +196,7 @@
                         maxlength: "Title cannot be more than 100 characters long"
                     },
                     description: {
+                        summernoteNotEmpty: "Please enter a description",
                         maxlength: "Description cannot be more than 500 characters long"
                     },
                     image: {
@@ -185,7 +206,9 @@
                 errorElement: "div",
                 errorClass: "text-danger",
                 errorPlacement: function(error, element) {
-                    if (element.hasClass("custom-file-input")) {
+                    if (element.attr("id") === "summernote") {
+                        error.insertAfter(element.siblings(".note-editor"));
+                    } else if (element.hasClass("custom-file-input")) {
                         error.insertAfter(element.parent());
                     } else {
                         error.insertAfter(element);
@@ -193,12 +216,17 @@
                 },
                 highlight: function(element) {
                     $(element).addClass("is-invalid").removeClass("is-valid");
+                    if ($(element).attr('id') === 'summernote') {
+                        $(element).next('.note-editor').addClass("border-danger").removeClass(
+                            "border-success");
+                    }
                 },
                 unhighlight: function(element) {
                     $(element).addClass("is-valid").removeClass("is-invalid");
-                },
-                submitHandler: function(form) {
-                    form.submit();
+                    if ($(element).attr('id') === 'summernote') {
+                        $(element).next('.note-editor').addClass("border-success").removeClass(
+                            "border-danger");
+                    }
                 }
             });
 
@@ -207,6 +235,20 @@
                 param = typeof param === "string" ? param.replace(/,/g, "|") : "png|jpe?g|gif";
                 return this.optional(element) || value.match(new RegExp("\\.(" + param + ")$", "i"));
             }, "Please select a file with a valid extension.");
+
+            // Add additional validation method for summernote not empty
+            $.validator.addMethod("summernoteNotEmpty", function(value, element) {
+                var $element = $('#' + element.id);
+                if ($element.hasClass('summernote') || $element.data('summernote')) {
+                    return !$element.summernote('isEmpty');
+                }
+                return true;
+            }, "This field is required.");
+
+            // Custom error message for summernote
+            $('#summernote').on('summernote.change', function() {
+                $("#aboutForm").validate().element($(this));
+            });
         });
     </script>
 @endpush
