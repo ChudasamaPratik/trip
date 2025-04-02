@@ -11,7 +11,7 @@
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="#">Role Permission</a>
+                                <a href="#">Role & Permission</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
                                 Permission
@@ -175,10 +175,10 @@
             });
             // Reset Modal on Close
             $('#permissionModal').on('hidden.bs.modal', function() {
+                $('#permissionForm').find('.is-invalid, .invalid-feedback, .text-danger').removeClass(
+                    'is-invalid invalid-feedback text-danger').text('');
                 $('#permissionForm')[0].reset();
                 $('#permissionForm').validate().resetForm();
-                $('#permissionForm').find('.is-invalid, .invalid-feedback, .text-danger').removeClass(
-                    'is-invalid invalid-feedback text-danger');
                 $('#permissionModalLabel').text('Add Permission');
                 $('#saveChanges').text('Save changes');
                 $('#permission_id').val(''); // Reset hidden field

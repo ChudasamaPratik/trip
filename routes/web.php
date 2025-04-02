@@ -1,6 +1,8 @@
 <?php
 
+
 use App\Http\Controllers\Backend\AboutController;
+use App\Http\Controllers\Backend\FeaturedDestinationController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SliderController;
@@ -71,7 +73,6 @@ Route::get('/agent/dashboard', function () {
 Route::prefix('admin')->group(function () {
     //Permission
     Route::resource('permissions', PermissionController::class)->only(['index', 'store', 'update']);
-
     //Role
     Route::resource('roles', RoleController::class)->only(['index', 'store', 'update']);
 
@@ -84,6 +85,7 @@ Route::prefix('admin')->group(function () {
     Route::delete('slider/{id}/delete', [SliderController::class, 'sliderDelete'])->name('slider.delete');
     Route::post('slider/change-status/{id}', [SliderController::class, 'changeStatus'])->name('slider.change.status');
 
+
     //About
     Route::get('about', [AboutController::class, 'index'])->name('about.index');
     Route::get('about/create', [AboutController::class, 'Create'])->name('about.create');
@@ -92,4 +94,8 @@ Route::prefix('admin')->group(function () {
     Route::put('about/{id}', [AboutController::class, 'update'])->name('about.update');
     Route::delete('about/{id}/delete', [AboutController::class, 'delete'])->name('about.delete');
     Route::post('about/change-status/{id}', [AboutController::class, 'changeStatus'])->name('about.change.status');
+
+
+    // Destination
+    Route::resource('featured-destination',FeaturedDestinationController::class);
 });
