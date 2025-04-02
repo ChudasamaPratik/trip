@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\Backend\AboutController;
+use App\Http\Controllers\Backend\AuctionController;
 use App\Http\Controllers\Backend\FeaturedDestinationController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\RoleController;
