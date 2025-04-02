@@ -20,14 +20,15 @@ class AboutController extends Controller
                 return DataTables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function ($row) {
-                        $actions = '<div class="btn-group" role="group">';
-                        $actions .= '<a href="' . route('about.edit', $row->id) . '" class="btn btn-sm btn-outline-primary mr-1"  title="Edit">
-                                        <i class="bi bi-pencil"></i>
-                                     </a>';
-                        $actions .= '<a href="' . route('about.delete', $row->id) . '" class="btn btn-sm btn-outline-danger delete"  title="Delete">
-                                        <i class="bi bi-trash"></i>
-                                     </a>';
-                        $actions .= '</div>';
+                        $actions = '<div class="dropdown">
+                        <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                            <i class="dw dw-more"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                            <a class="dropdown-item" href="' . route('about.edit', $row->id) . '"><i class="dw dw-edit2"></i> Edit</a>
+                            <a class="dropdown-item delete" href="' . route('about.destroy', $row->id) . '" ><i class="dw dw-delete-3"></i> Delete</a>
+                        </div>
+                    </div>';
                         return $actions;
                     })
                     ->addColumn('image', function ($about) {
@@ -102,7 +103,7 @@ class AboutController extends Controller
         }
     }
 
-    public function edit($id)
+    public function edit(string $id)
     {
         try {
             $slider = AboutSection::find($id);
