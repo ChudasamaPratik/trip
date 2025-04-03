@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\BidOnTravelController;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\FAQController;
 use App\Http\Controllers\Backend\FeaturedDestinationController;
+use App\Http\Controllers\Backend\FooterController;
 use App\Http\Controllers\Backend\HomeBannerController;
 use App\Http\Controllers\Backend\HowItWorkController;
 use App\Http\Controllers\Backend\LegalPageController;
@@ -150,9 +151,7 @@ Route::prefix('admin')->group(function () {
     Route::resource('legal-page', LegalPageController::class);
     Route::post('legal-page/change-status/{id}', [LegalPageController::class, 'changeStatus'])->name('legal-page.change.status');
 
-    //User & Agent Registration
-    Route::get('/users', [UserManagementController::class, 'userIndex'])->name('users.index');
-    Route::get('/agents', [UserManagementController::class, 'agentIndex'])->name('agents.index');
-    Route::get('/user-management/view-profile/{id}', [UserManagementController::class, 'viewProfile'])->name('user-management.view.profile');
-    Route::post('user-management/change-status/{id}', [UserManagementController::class, 'changeStatus'])->name('user-management.change.status');
+    // Footer 
+    Route::resource('footer', FooterController::class);
+    Route::post('footer/change-status/{id}', [FooterController::class, 'changeStatus'])->name('footer.change.status');
 });
