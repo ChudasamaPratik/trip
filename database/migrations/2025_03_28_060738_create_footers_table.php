@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->uuid('id')->primary();
             $table->text('description');
             $table->text('declaimer_description');
-            $table->text('t&c_description');
+            $table->text('tc_description');
             $table->string('facebook_link');
             $table->string('twitter_link');
             $table->string('instagram_link');

@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\BidOnTravelController;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\FAQController;
 use App\Http\Controllers\Backend\FeaturedDestinationController;
+use App\Http\Controllers\Backend\FooterController;
 use App\Http\Controllers\Backend\HomeBannerController;
 use App\Http\Controllers\Backend\HowItWorkController;
 use App\Http\Controllers\Backend\LegalPageController;
@@ -148,4 +149,8 @@ Route::prefix('admin')->group(function () {
     //Legal Page
     Route::resource('legal-page', LegalPageController::class);
     Route::post('legal-page/change-status/{id}', [LegalPageController::class, 'changeStatus'])->name('legal-page.change.status');
+
+    // Footer 
+    Route::resource('footer', FooterController::class);
+    Route::post('footer/change-status/{id}', [FooterController::class, 'changeStatus'])->name('footer.change.status');
 });
