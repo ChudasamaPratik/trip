@@ -31,6 +31,9 @@ class AboutController extends Controller
                     </div>';
                         return $actions;
                     })
+                    ->editColumn('description', function ($about) {
+                        return Str::limit(strip_tags($about->description), 50);
+                    })
                     ->addColumn('image', function ($about) {
                         return '<img src="' . ($about->image_url) . '" alt="' . $about->title . '" width="150" class="img">';
                     })
