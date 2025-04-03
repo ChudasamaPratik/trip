@@ -52,7 +52,6 @@ Route::get('/contact-us', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 Route::get('/admin/dashboard', function () {
@@ -150,6 +149,12 @@ Route::prefix('admin')->group(function () {
     //Legal Page
     Route::resource('legal-page', LegalPageController::class);
     Route::post('legal-page/change-status/{id}', [LegalPageController::class, 'changeStatus'])->name('legal-page.change.status');
+
+    //User & Agent Registration
+    Route::get('/users', [UserManagementController::class, 'userIndex'])->name('users.index');
+    Route::get('/agents', [UserManagementController::class, 'agentIndex'])->name('agents.index');
+    Route::get('/user-management/view-profile/{id}', [UserManagementController::class, 'viewProfile'])->name('user-management.view.profile');
+    Route::post('user-management/change-status/{id}', [UserManagementController::class, 'changeStatus'])->name('user-management.change.status');
 
     // Footer 
     Route::resource('footer', FooterController::class);
