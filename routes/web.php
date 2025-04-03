@@ -5,12 +5,16 @@ use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\Backend\AuctionController;
 use App\Http\Controllers\Backend\BidOnTravelController;
 use App\Http\Controllers\Backend\BlogController;
+use App\Http\Controllers\Backend\FAQController;
 use App\Http\Controllers\Backend\FeaturedDestinationController;
 use App\Http\Controllers\Backend\HomeBannerController;
 use App\Http\Controllers\Backend\HowItWorkController;
+use App\Http\Controllers\Backend\LegalPageController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SliderController;
+use App\Http\Controllers\Backend\TeamController;
+use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\Backend\TipsAndTravelsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -91,7 +95,6 @@ Route::prefix('admin')->group(function () {
     Route::delete('slider/{id}/delete', [SliderController::class, 'sliderDelete'])->name('slider.delete');
     Route::post('slider/change-status/{id}', [SliderController::class, 'changeStatus'])->name('slider.change.status');
 
-
     //About
     Route::get('about', [AboutController::class, 'index'])->name('about.index');
     Route::get('about/create', [AboutController::class, 'Create'])->name('about.create');
@@ -104,9 +107,6 @@ Route::prefix('admin')->group(function () {
 
     // Destination
     Route::resource('featured-destination', FeaturedDestinationController::class);
-
-    Route::post('slider/change-status/{id}', [FeaturedDestinationController::class, 'changeStatus'])->name('featured-destination.status');
-
     Route::post('featured-destination/change-status/{id}', [FeaturedDestinationController::class, 'changeStatus'])->name('featured-destination.status');
 
     // Auction
@@ -132,4 +132,20 @@ Route::prefix('admin')->group(function () {
     //How Does It Work
     Route::resource('how-does-it-work', HowItWorkController::class);
     Route::post('how-does-it-work/change-status/{id}', [HowItWorkController::class, 'changeStatus'])->name('how-does-it-work.change.status');
+
+    //Testimonial
+    Route::resource('testimonial', TestimonialController::class);
+    Route::post('testimonial/change-status/{id}', [TestimonialController::class, 'changeStatus'])->name('testimonial.change.status');
+
+    //Team
+    Route::resource('team', TeamController::class);
+    Route::post('team/change-status/{id}', [TeamController::class, 'changeStatus'])->name('team.change.status');
+
+    //FAQ
+    Route::resource('faq', FAQController::class);
+    Route::post('faq/change-status/{id}', [FAQController::class, 'changeStatus'])->name('faq.change.status');
+
+    //Legal Page
+    Route::resource('legal-page', LegalPageController::class);
+    Route::post('legal-page/change-status/{id}', [LegalPageController::class, 'changeStatus'])->name('legal-page.change.status');
 });

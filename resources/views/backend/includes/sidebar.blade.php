@@ -42,7 +42,10 @@
                             </ul>
                         </li>
                         <li><a href="{{ route('blog.index') }}"> Blog</a></li>
-
+                        <li><a href="{{ route('testimonial.index') }}"> Testimonial</a></li>
+                        <li><a href="{{ route('team.index') }}"> Team</a></li>
+                        <li><a href="{{ route('faq.index') }}"> FAQ's</a></li>
+                        <li><a href="{{ route('legal-page.index') }}"> Legal Pages Content</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
