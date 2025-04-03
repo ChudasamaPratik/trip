@@ -30,6 +30,17 @@
                                 <li><a href="javascript:;"> Tips & Travels Comment </a></li>
                             </ul>
                         </li>
+
+                        {{-- <li><a href="{{ route('bid-on-travel.index') }}"> Bid & Travel </a></li> --}}
+                        <li class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle">
+                                <span class="micon fa fa-plane"></span><span class="mtext">Bid & Travels</span>
+                            </a>
+                            <ul class="submenu child">
+                                <li><a href="{{ route('bid-on-travel.index') }}"> Bid & Travels Page</a></li>
+                                <li><a href="{{ route('how-does-it-work.index') }}"> How it Work </a></li>
+                            </ul>
+                        </li>
                         <li><a href="{{ route('blog.index') }}"> Blog</a></li>
                         <li><a href="{{ route('testimonial.index') }}"> Testimonial</a></li>
                         <li><a href="{{ route('team.index') }}"> Team</a></li>
