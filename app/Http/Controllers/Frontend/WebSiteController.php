@@ -7,6 +7,7 @@ use App\Models\AboutSection;
 use App\Models\Auction;
 use App\Models\BidTravelsSection;
 use App\Models\Blog;
+use App\Models\ContactContent;
 use App\Models\Destination;
 use App\Models\Faq;
 use App\Models\Footer;
