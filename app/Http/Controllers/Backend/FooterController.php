@@ -32,6 +32,15 @@ class FooterController extends Controller
                     </div>';
                         return $actions;
                     })
+                    ->editColumn('description', function ($footer) {
+                        return Str::limit(strip_tags($footer->description), 100);
+                    })
+                    ->editColumn('declaimer_description	', function ($footer) {
+                        return Str::limit(strip_tags($footer->declaimer_description), 100);
+                    })
+                    ->editColumn('tc_description', function ($footer) {
+                        return Str::limit(strip_tags($footer->tc_description), 100);
+                    })
                     ->addColumn('status_switch', function ($footer) {
                         $checked = $footer->status == 'active' ? 'checked' : '';
                         return '
