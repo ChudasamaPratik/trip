@@ -54,7 +54,7 @@
         $(document).ready(function() {
             $('.Bid-table').DataTable({
                 scrollCollapse: true,
-                autoWidth: false,
+                autoWidth: true,
                 responsive: true,
                 processing: true,
                 serverSide: true,
