@@ -3,9 +3,11 @@
 
 use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\Backend\AuctionController;
+use App\Http\Controllers\Backend\BidOnTravelController;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\FeaturedDestinationController;
 use App\Http\Controllers\Backend\HomeBannerController;
+use App\Http\Controllers\Backend\HowItWorkController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SliderController;
@@ -122,4 +124,12 @@ Route::prefix('admin')->group(function () {
     //Blog
     Route::resource('blog', BlogController::class);
     Route::post('blog/change-status/{id}', [BlogController::class, 'changeStatus'])->name('blog.change.status');
+
+    // Bid ON travel
+    Route::resource('bid-on-travel', BidOnTravelController::class);
+    Route::post('bid-on-travel/change-status/{id}', [BidOnTravelController::class, 'changeStatus'])->name('bid-on-travel.change.status');
+
+    //How Does It Work
+    Route::resource('how-does-it-work', HowItWorkController::class);
+    Route::post('how-does-it-work/change-status/{id}', [HowItWorkController::class, 'changeStatus'])->name('how-does-it-work.change.status');
 });

@@ -41,7 +41,7 @@ class AuctionController extends Controller
                         $checked = $auction->status == 'active' ? 'checked' : '';
                         return '
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input change-status" id="statusToggle' . $auction->id . '" data-href="' . route('auction.status', $auction->id) . '" ' . $checked . '>
+                            <input type="checkbox" class="custom-control-input change-status" id="statusToggle' . $auction->id . '" data-href="' . route('auction.change.status', $auction->id) . '" ' . $checked . '>
                             <label class="custom-control-label" for="statusToggle' . $auction->id . '"></label>
                         </div>';
                     })
