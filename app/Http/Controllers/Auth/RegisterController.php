@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Agent;
 use App\Models\User;
+use App\Models\UserDetail;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -75,10 +78,21 @@ class RegisterController extends Controller
             'last_login_at' => now(),
         ]);
 
-        // Assign role based on selection
         $role = Role::where('name', $data['role'])->first();
         if ($role) {
             $user->assignRole($role);
+
+            if ($role->name === 'user') {
+                UserDetail::create([
+                    'id' => Str::uuid(),
+                    'user_id' => $user->id
+                ]);
+            } elseif ($role->name === 'agent') {
+                Agent::create([
+                    'id' => Str::uuid(),
+                    'user_id' => $user->id
+                ]);
+            }
         }
 
         return $user;

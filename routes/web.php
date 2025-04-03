@@ -16,6 +16,7 @@ use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\TeamController;
 use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\Backend\TipsAndTravelsController;
+use App\Http\Controllers\Backend\UserManagementController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -148,4 +149,10 @@ Route::prefix('admin')->group(function () {
     //Legal Page
     Route::resource('legal-page', LegalPageController::class);
     Route::post('legal-page/change-status/{id}', [LegalPageController::class, 'changeStatus'])->name('legal-page.change.status');
+
+    //User & Agent Registration
+    Route::get('/users', [UserManagementController::class, 'userIndex'])->name('users.index');
+    Route::get('/agents', [UserManagementController::class, 'agentIndex'])->name('agents.index');
+    Route::get('/user-management/view-profile/{id}', [UserManagementController::class, 'viewProfile'])->name('user-management.view.profile');
+    Route::post('user-management/change-status/{id}', [UserManagementController::class, 'changeStatus'])->name('user-management.change.status');
 });

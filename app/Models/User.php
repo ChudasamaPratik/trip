@@ -24,6 +24,8 @@ class User extends Authenticatable
         'email',
         'password',
         'last_login_at',
+        'image',
+        'status'
     ];
 
     /**
@@ -47,5 +49,23 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function userDetails()
+    {
+        return $this->hasOne(UserDetail::class);
+    }
+    public function agentDetails()
+    {
+        return $this->hasOne(Agent::class);
+    }
+
+    protected $appends = ['image_url'];
+    public function getImageUrlAttribute()
+    {
+        if ($this->image) {
+            return asset('storage/user_profile/' . $this->image);
+        }
+        return asset('storage/noimage.png'); 
     }
 }
