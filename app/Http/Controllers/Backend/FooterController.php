@@ -63,7 +63,6 @@ class FooterController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'facebook_link' => 'nullable|string|min:3|max:100',
             'twitter_link' => 'nullable|string|min:3|max:100',
@@ -108,7 +107,8 @@ class FooterController extends Controller
             $footer->tc_description = $request->tc_description;
             $footer->save();
             return redirect()->route('footer.index')->with('success', 'Footer created successfully');
-        } catch (\Exception $th) {
+        } catch (\Exception $e) {
+            dd($e->getMessage());
             return redirect()->route('footer.create')->with('error', 'Something Wrong.');
         }
     }
