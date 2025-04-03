@@ -33,6 +33,9 @@ class HowItWorkController extends Controller
                     </div>';
                         return $actions;
                     })
+                    ->editColumn('description', function ($how) {
+                        return Str::limit(strip_tags($how->description), 50);
+                    })
                     ->addColumn('status_switch', function ($how) {
                         $checked = $how->status == 'active' ? 'checked' : '';
                         return '
@@ -72,13 +75,12 @@ class HowItWorkController extends Controller
         $request->validate([
 
             'title' => 'required|string|min:3|max:100',
-            'description' => 'nullable|string|max:1000',
+            'description' => 'nullable|string',
 
         ], [
             'title.required' => 'The title field is required.',
             'title.min' => 'The title must be at least 3 characters.',
             'title.max' => 'The title cannot be longer than 100 characters.',
-            'description.max' => 'The description cannot be longer than 500 characters.',
         ]);
         try {
 
@@ -122,12 +124,11 @@ class HowItWorkController extends Controller
     {
         $request->validate([
             'title' => 'required|string|min:3|max:100',
-            'description' => 'nullable|string|max:1000',
+            'description' => 'nullable|string',
         ], [
             'title.required' => 'The title field is required.',
             'title.min' => 'The title must be at least 3 characters.',
             'title.max' => 'The title cannot be longer than 100 characters.',
-            'description.max' => 'The description cannot be longer than 500 characters.',
 
         ]);
         try {
