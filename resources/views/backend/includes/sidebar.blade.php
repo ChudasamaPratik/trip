@@ -46,6 +46,7 @@
                         <li><a href="{{ route('team.index') }}"> Team</a></li>
                         <li><a href="{{ route('faq.index') }}"> FAQ's</a></li>
                         <li><a href="{{ route('legal-page.index') }}"> Legal Pages Content</a></li>
+                        <li><a href="{{ route('contact.index') }}"> Contact Pages Content</a></li>
                         <li><a href="{{ route('footer.index') }}"> Footer Pages Content</a></li>
                     </ul>
                 </li>

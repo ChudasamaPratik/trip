@@ -88,8 +88,6 @@
 @endsection
 
 @push('scripts')
-    <script type="text/javascript" src="https://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.js"></script>
-
     <script>
         $.validator.addMethod("email_regex", function(value, element) {
             return this.optional(element) || /^([a-z_0-9"]+)([a-z0-9_\+-\."]+)@([a-z0-9_\-\.]+)\.([a-z]{2,5})$/i
