@@ -17,6 +17,7 @@ use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\TeamController;
 use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\Backend\TipsAndTravelsController;
+use App\Http\Controllers\Backend\UserManagementController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 

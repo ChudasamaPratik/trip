@@ -65,8 +65,13 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="calendar.html" class="dropdown-toggle no-arrow">
-                        <span class="micon bi bi-calendar4-week"></span><span class="mtext">Calendar</span>
+                    <a href="{{ route('users.index') }}" class="dropdown-toggle no-arrow">
+                        <span class="micon bi bi-person-plus"></span><span class="mtext">User Register</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('agents.index') }}" class="dropdown-toggle no-arrow">
+                        <span class="micon bi bi-person-badge"></span><span class="mtext">Agent Register</span>
                     </a>
                 </li>
             </ul>
