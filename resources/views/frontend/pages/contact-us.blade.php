@@ -55,29 +55,51 @@
                 <div class="col-lg-4">
                     <div class="contact-about footer-margin">
                         <h4>Let's Start a Conversation</h4>
-                        <p>
-                        <p>This is a sample of dummy copy text often used to show page layout and design as sample
-                            layout text by Graphic designers..</p>
-                        </p>
+
+                        <p>{!! $contactUs->description !!}</p>
+
                         <div class="contact-location">
                             <ul>
-                                <li><i class="flaticon-maps-and-flags" aria-hidden="true"></i> ABC, your city, state,
-                                    country</li>
-                                <li><i class="flaticon-phone-call"></i> (+91)-0123-45678</li>
-                                <li><i class="flaticon-mail"></i> <a href="abc@yourdomain.com" class="__cf_email__"
-                                        data-cfemail="">abc@yourdomain.com</a></li>
+                                <li><i class="flaticon-maps-and-flags" aria-hidden="true"></i>
+                                    {{ $contactUs->address }}</li>
+                                <li><i class="flaticon-phone-call"></i> (+91)-{{ $contactUs->phone }}</li>
+                                <li><i class="flaticon-mail"></i> <a href="{{ $contactUs->email }}" class="__cf_email__"
+                                        data-cfemail="">{{ $contactUs->email }}</a></li>
                             </ul>
                         </div>
                         <div class="footer-social-links">
                             <ul>
-                                <li class="social-icon"><a href="#" target="_blank"><i class="fa fa-facebook"
-                                            aria-hidden="true"></i></a></li>
-                                <li class="social-icon"><a href="#" target="_blank"><i class="fa fa-instagram"
-                                            aria-hidden="true"></i></a></li>
-                                <li class="social-icon"><a href="#" target="_blank"><i class="fa fa-twitter"
-                                            aria-hidden="true"></i></a></li>
-                                <li class="social-icon"><a href="#" target="_blank"><i class="fa fa-youtube"
-                                            aria-hidden="true"></i></a></li>
+                                @if ($footer->facebook_link)
+                                    <li class="social-icon"><a href="{{ $footer->facebook_link }}" target="_blank"><i
+                                                class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                @else
+                                    <li class="social-icon"><a href="#" target="_blank"><i class="fa fa-facebook"
+                                                aria-hidden="true"></i></a></li>
+                                @endif
+
+                                @if ($footer->instagram_link)
+                                    <li class="social-icon"><a href="{{ $footer->instagram_link }}" target="_blank"><i
+                                                class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                @else
+                                    <li class="social-icon"><a href="#" target="_blank"><i class="fa fa-instagram"
+                                                aria-hidden="true"></i></a></li>
+                                @endif
+
+                                @if ($footer->twitter_link)
+                                    <li class="social-icon"><a href="{{ $footer->twitter_link }}" target="_blank"><i
+                                                class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                @else
+                                    <li class="social-icon"><a href="#" target="_blank"><i class="fa fa-twitter"
+                                                aria-hidden="true"></i></a></li>
+                                @endif
+
+                                @if ($footer->youtube_link)
+                                    <li class="social-icon"><a href="{{ $footer->youtube_link }}" target="_blank"><i
+                                                class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                                @else
+                                    <li class="social-icon"><a href="#" target="_blank"><i class="fa fa-youtube"
+                                                aria-hidden="true"></i></a></li>
+                                @endif
                             </ul>
                         </div>
                     </div>
