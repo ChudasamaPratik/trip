@@ -14,107 +14,38 @@
             <div class="row">
                 <div class="col-lg-10 mx-auto">
                     <div class="blog-wrapper">
-
-                        <div class="blog-item grid-item">
-                            <div class="row align-items-center">
-                                <div class="col-lg-4">
-                                    <div class="blog-image">
-                                        <img src="{{ asset('frontend/images/627384dfc73caau1.jpg') }}" alt="Image">
-                                    </div>
-                                </div>
-                                <div class="col-lg-8">
-                                    <div class="blog-content">
-                                        <div class="blog-date">
-                                            <p><i class="fa fa-clock-o"></i> Posted On : 05 May, 2022</p>
+                        @if (isset($data['auctions']) && $data['auctions']->count() > 0)
+                            @foreach ($data['auctions'] as $auction)
+                                <div class="blog-item grid-item">
+                                    <div class="row align-items-center">
+                                        <div class="col-lg-4">
+                                            <div class="blog-image">
+                                                <img src="{{ asset($auction->image_url) }}" alt="{{ $auction->title }}">
+                                            </div>
                                         </div>
-                                        <h3><a href="auctions-detail.php?id=1">Koonwarra Holiday Park</a></h3>
-                                        <p>This is a sample of dummy copy text often used to show page layout and design
-                                            as sample layout text by Graphic designers, Web designers, People creating
-                                            templates, and many other uses. This is a sample of dummy copy text often
-                                            used to show page layout and design as sample layout text by Graphic
-                                            designers, Web designers, People creating templates, and many other uses.
-                                            This is a sample of dummy copy text often used to show page layout and
-                                            design</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="blog-item grid-item">
-                            <div class="row align-items-center">
-                                <div class="col-lg-4">
-                                    <div class="blog-image">
-                                        <img src="{{ asset('frontend/images/627384dfc73caau1.jpg') }}" alt="Image">
-                                    </div>
-                                </div>
-                                <div class="col-lg-8">
-                                    <div class="blog-content">
-                                        <div class="blog-date">
-                                            <p><i class="fa fa-clock-o"></i> Posted On : 05 May, 2022</p>
+                                        <div class="col-lg-8">
+                                            <div class="blog-content">
+                                                <div class="blog-date">
+                                                    <p><i class="fa fa-clock-o"></i> Posted On :
+                                                        {{ $auction->created_at->format('d M, Y') }}</p>
+                                                </div>
+                                                <h3><a href="#">{{ $auction->title }}</a>
+                                                </h3>
+                                                <p>{!! Str::limit($auction->description1, 300) !!}</p>
+                                            </div>
                                         </div>
-                                        <h3><a href="auctions-detail.php?id=2">River Retreat Villas</a></h3>
-                                        <p>This is a sample of dummy copy text often used to show page layout and design
-                                            as sample layout text by Graphic designers, Web designers, People creating
-                                            templates, and many other uses. This is a sample of dummy copy text often
-                                            used to show page layout and design as sample layout text by Graphic
-                                            designers, Web designers, People creating templates, and many other uses.
-                                            This is a sample of dummy copy text often used to show page layout and
-                                            design</p>
                                     </div>
                                 </div>
+                            @endforeach
+                        @else
+                            <div class="no-data-container text-center py-5">
+                                <div class="mb-4">
+                                    <i class="fa fa-info-circle fa-4x text-muted"></i>
+                                </div>
+                                <h3 class="mb-3">No Data Found</h3>
+                                <p class="text-muted">The requested information is not available at the moment.</p>
                             </div>
-                        </div>
-
-                        <div class="blog-item grid-item">
-                            <div class="row align-items-center">
-                                <div class="col-lg-4">
-                                    <div class="blog-image">
-                                        <img src="{{ asset('frontend/images/627384dfc73caau1.jpg') }}" alt="Image">
-                                    </div>
-                                </div>
-                                <div class="col-lg-8">
-                                    <div class="blog-content">
-                                        <div class="blog-date">
-                                            <p><i class="fa fa-clock-o"></i> Posted On : 05 May, 2022</p>
-                                        </div>
-                                        <h3><a href="auctions-detail.php?id=3">Surfside Holiday Park</a></h3>
-                                        <p>This is a sample of dummy copy text often used to show page layout and design
-                                            as sample layout text by Graphic designers, Web designers, People creating
-                                            templates, and many other uses. This is a sample of dummy copy text often
-                                            used to show page layout and design as sample layout text by Graphic
-                                            designers, Web designers, People creating templates, and many other uses.
-                                            This is a sample of dummy copy text often used to show page layout and
-                                            design</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="blog-item grid-item">
-                            <div class="row align-items-center">
-                                <div class="col-lg-4">
-                                    <div class="blog-image">
-                                        <img src="{{ asset('frontend/images/627384dfc73caau1.jpg') }}" alt="Image">
-                                    </div>
-                                </div>
-                                <div class="col-lg-8">
-                                    <div class="blog-content">
-                                        <div class="blog-date">
-                                            <p><i class="fa fa-clock-o"></i> Posted On : 05 May, 2022</p>
-                                        </div>
-                                        <h3><a href="auctions-detail.php?id=4">Koonwarra Holiday Park</a></h3>
-                                        <p>This is a sample of dummy copy text often used to show page layout and design
-                                            as sample layout text by Graphic designers, Web designers, People creating
-                                            templates, and many other uses. This is a sample of dummy copy text often
-                                            used to show page layout and design as sample layout text by Graphic
-                                            designers, Web designers, People creating templates, and many other uses.
-                                            This is a sample of dummy copy text often used to show page layout and
-                                            design</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                        @endif
                     </div>
                 </div>
             </div>

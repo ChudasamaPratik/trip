@@ -2,7 +2,13 @@
 <html lang="zxx">
 
 <head>
-    <title>@yield('title') | BidMyTrip</title>
+    <title>
+        @hasSection('title')
+            @yield('title') |
+        @endif
+        BidMyTrip
+    </title>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend/images/logo1.png') }}">
@@ -32,14 +38,18 @@
         <a href="javascript:void(0)"></a>
     </div>
     <script data-cfasync="false" src="{{ asset('frontend/js/email-decode.min.js') }}"></script>
-    <script src="{{ asset('frontend/js/jquery-3.2.1.min.js') }}"></script>
-    <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('lib/jquery-3.6.2.js') }}"></script>
+
+    <script src="{{ asset('frontend/js/bootstrap.bundle.min.js') }}"></script>
+
     <script src="{{ asset('frontend/js/plugin.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     <script src="{{ asset('frontend/js/main-1.js') }}"></script>
     <script src="{{ asset('frontend/js/preloader.js') }}"></script>
     <script src="{{ asset('frontend/js/custom-swiper2.js') }}"></script>
-    <script src="{{ asset('frontend/js/custom-countdown.js') }}"></script>
+    <script src="{{ asset('frontend/js/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('lib/jquery_validate/jquery.validate.js') }}"></script>
+    {{-- <script src="{{ asset('frontend/js/custom-countdown.js') }}"></script> --}}
     <script type="text/javascript">
         (function() {
             window['__CF&#8377;cv&#8377;params'] = {

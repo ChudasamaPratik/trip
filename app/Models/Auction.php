@@ -10,25 +10,54 @@ class Auction extends Model
     public $incrementing = false;
 
     protected $appends = ['image_url', 'image_url1', 'image_url2'];
+
+    /**
+     * Get image URL with fallback to default image.
+     *
+     * @param string|null $imageName
+     * @return string
+     */
+    protected function getImageUrl($imageName)
+    {
+        if ($imageName) {
+            return asset('storage/auctionSection/' . $imageName);
+        }
+        return asset('storage/noimage.png'); 
+    }
+
+    /**
+     * Get the URL for the primary image.
+     *
+     * @return string
+     */
     public function getImageUrlAttribute()
     {
-        if ($this->image) {
-            return asset('storage/auctionSection/' . $this->image);
-        }
-        // return asset('path/to/default-image.jpg'); // Fallback image
+        return $this->getImageUrl($this->image);
     }
+
+    /**
+     * Get the URL for the first additional image.
+     *
+     * @return string
+     */
     public function getImageUrl1Attribute()
     {
-        if ($this->image1) {
-            return asset('storage/auctionSection/' . $this->image1);
-        }
-        // return asset('path/to/default-image.jpg'); // Fallback image
+        return $this->getImageUrl($this->image1);
     }
+
+    /**
+     * Get the URL for the second additional image.
+     *
+     * @return string
+     */
     public function getImageUrl2Attribute()
     {
-        if ($this->image2) {
-            return asset('storage/auctionSection/' . $this->image2);
-        }
-        // return asset('path/to/default-image.jpg'); // Fallback image
+        return $this->getImageUrl($this->image2);
+    }
+
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
     }
 }

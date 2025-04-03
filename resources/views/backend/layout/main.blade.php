@@ -4,7 +4,12 @@
 <head>
     <!-- Basic Page Info -->
     <meta charset="utf-8" />
-    <title>@yield('title') | BidMyTrip</title>
+    <title>
+        @hasSection('title')
+            @yield('title') |
+        @endif
+        BidMyTrip
+    </title>
 
     <!-- Site favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('backend/vendors/images/apple-touch-icon.png') }}" />

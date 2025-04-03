@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->uuid('id')->primary();
             $table->string('main_title');
             $table->string('title');
-            $table->string('description');
+            $table->longText('description');
             $table->string('image');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();

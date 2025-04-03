@@ -179,7 +179,6 @@ class AuctionController extends Controller
             $auction->save();
             return redirect()->route('auction.index')->with('success', "Auction updated successfully.");
         } catch (\Exception $e) {
-            \Log::error($e->getMessage());
             return redirect()->route('auction.index')->with('error', "Something went wrong.");
         }
     }

@@ -17,6 +17,10 @@ class Testimonial extends Model
         if ($this->image) {
             return asset('storage/testimonials/' . $this->image);
         }
-        // return asset('path/to/default-image.jpg'); // Fallback image
+        return asset('storage/noimage.png');
+    }
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
     }
 }

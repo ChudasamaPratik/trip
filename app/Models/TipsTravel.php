@@ -22,7 +22,7 @@ class TipsTravel extends Model
         if ($this->image) {
             return asset('storage/tips-and-travels/' . $this->image);
         }
-        return null; // Or return a default image path
+        return asset('storage/noimage.png');
     }
 
     public function getImage1UrlAttribute()
@@ -30,7 +30,7 @@ class TipsTravel extends Model
         if ($this->image1) {
             return asset('storage/tips-and-travels/' . $this->image1);
         }
-        return null; // Or return a default image path
+        return asset('storage/noimage.png');
     }
 
     public function getImage2UrlAttribute()
@@ -38,6 +38,10 @@ class TipsTravel extends Model
         if ($this->image2) {
             return asset('storage/tips-and-travels/' . $this->image2);
         }
-        return null; // Or return a default image path
+        return asset('storage/noimage.png');
+    }
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
     }
 }
