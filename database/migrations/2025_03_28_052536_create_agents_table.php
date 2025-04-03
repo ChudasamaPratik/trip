@@ -13,17 +13,15 @@ return new class extends Migration {
         Schema::create('agents', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->integer('user_id')->unsigned();
-            $table->integer('phone');
-            $table->string('agency_name');
-            $table->integer('otp');
-            $table->string('address');
-            $table->string('city');
-            $table->string('state');
-            $table->string('country');
-            $table->string('zipcode');
-            $table->string('image');
-            $table->text('description');
-            $table->enum('status', ['active', 'inactive'], )->default('active');
+            $table->integer('phone')->nullable();
+            $table->string('agency_name')->nullable();
+            $table->integer('otp')->nullable();
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('country')->nullable();
+            $table->string('zipcode')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
