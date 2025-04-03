@@ -70,7 +70,7 @@ class BidOnTravelController extends Controller
         $request->validate([
             'main_title' => 'required|string|min:3|max:100',
             'title' => 'required|string|min:3|max:100',
-            'description' => 'nullable|string|max:1000',
+            'description' => 'nullable|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif',
         ], [
             'main_title.required' => 'The title field is required.',
@@ -79,7 +79,6 @@ class BidOnTravelController extends Controller
             'title.required' => 'The title field is required.',
             'title.min' => 'The title must be at least 3 characters.',
             'title.max' => 'The title cannot be longer than 100 characters.',
-            'description.max' => 'The description cannot be longer than 500 characters.',
             'image.required' => 'Please select an image for the slider.',
             'image.image' => 'The file must be an image.',
             'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif.',
@@ -136,7 +135,7 @@ class BidOnTravelController extends Controller
         $request->validate([
             'main_title' => 'required|string|min:3|max:100',
             'title' => 'required|string|min:3|max:100',
-            'description' => 'nullable|string|max:1000',
+            'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ], [
             'main_title.required' => 'The title field is required.',
@@ -145,7 +144,6 @@ class BidOnTravelController extends Controller
             'title.required' => 'The title field is required.',
             'title.min' => 'The title must be at least 3 characters.',
             'title.max' => 'The title cannot be longer than 100 characters.',
-            'description.max' => 'The description cannot be longer than 500 characters.',
             'image.image' => 'The file must be an image.',
             'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif.',
             'status.required' => 'The status field is required.',

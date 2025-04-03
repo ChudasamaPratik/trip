@@ -169,7 +169,6 @@
                     },
                     description: {
                         summernoteNotEmpty: true,
-                        maxlength: 500
                     },
                     image: {
                         required: true,
@@ -189,7 +188,6 @@
                     },
                     description: {
                         summernoteNotEmpty: "Please enter a description",
-                        maxlength: "Description cannot be more than 500 characters long"
                     },
                     image: {
                         required: "Please select an image for the About",

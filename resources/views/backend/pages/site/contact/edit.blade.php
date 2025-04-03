@@ -1,5 +1,5 @@
 @extends('backend.layout.main')
-@section('title', 'How Does It Work')
+@section('title', 'Edit Contact')
 @push('styles')
     <link href="{{ asset('backend/lib/summernote/summernote-lite.css') }}" rel="stylesheet">
 @endpush
@@ -9,22 +9,22 @@
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <div class="title">
-                        <h4>Create How It Work</h4>
+                        <h4>Edit Contact</h4>
                     </div>
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="#">How Does It Work</a>
+                                <a href="#">Contact us</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                How It Work
+                                Edit Contact
                             </li>
                         </ol>
                     </nav>
                 </div>
                 <div class="col-md-6 col-sm-12 text-right">
                     <div class="dropdown">
-                        <a class="btn btn-secondary" href="{{ route('how-does-it-work.index') }}">
+                        <a class="btn btn-secondary" href="{{ route('contact.index') }}">
                             <i class="fa fa-list"></i> Back to List
                         </a>
                     </div>
@@ -34,18 +34,42 @@
         <div class="pd-20 card-box mb-30">
             <div class="clearfix mb-3">
                 <div class="pull-left">
-                    <h4 class="text-blue h4">How It Work Information</h4>
+                    <h4 class="text-blue h4">Contact Information</h4>
                 </div>
             </div>
-            <form method="POST" action="{{ route('how-does-it-work.store') }}" enctype="multipart/form-data"
-                id="howItForm">
+            <form method="POST" action="{{ route('contact.update', $contact->id) }}" id="contactForm">
                 @csrf
+                @method('PUT')
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Title <span class="text-danger">*</span></label>
+                    <label class="col-sm-12 col-md-2 col-form-label">e-Mail <span class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
-                        <input class="form-control @error('title') is-invalid @enderror" name="title" type="text"
-                            placeholder="Enter Bid Travel title" value="{{ old('title') }}" />
-                        @error('title')
+                        <input class="form-control @error('email') is-invalid @enderror" name="email" type="email"
+                            placeholder="Enter e-mail" value="{{ old('email', $contact->email) }}" />
+                        @error('email')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-12 col-md-2 col-form-label">Phone <span class="text-danger">*</span></label>
+                    <div class="col-sm-12 col-md-10">
+                        <input class="form-control @error('phone') is-invalid @enderror" name="phone" type="number"
+                            placeholder="Enter Phone" value="{{ old('phone', $contact->phone) }}" />
+                        @error('Phone')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-12 col-md-2 col-form-label">Address<span class="text-danger">*</span></label>
+                    <div class="col-sm-12 col-md-10">
+                        <input class="form-control @error('address') is-invalid @enderror" name="address" type="text"
+                            placeholder="Enter Address" value="{{ old('address', $contact->address) }}" />
+                        @error('address')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -56,7 +80,7 @@
                     <label class="col-sm-12 col-md-2 col-form-label">Description <span class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
                         <textarea id="summernote" class="form-control summernote @error('description') is-invalid @enderror" name="description"
-                            placeholder="Enter destination description" rows="5">{{ old('description') }}</textarea>
+                            placeholder="Enter destination description" rows="5">{{ old('description', $contact->description) }}</textarea>
                         <div id="description-error" class="text-danger" style="display: none;"></div>
                         @error('description')
                             <div class="invalid-feedback">
@@ -68,7 +92,7 @@
                 <div class="form-group row">
                     <div class="col-sm-12 col-md-10 offset-md-2">
                         <button type="submit" class="btn btn-primary">
-                            <i class="fa fa-save"></i> Save How It Work
+                            <i class="fa fa-save"></i> Update Contact
                         </button>
                     </div>
                 </div>
@@ -96,73 +120,78 @@
                 ]
             });
 
+            // Custom validation method for Summernote fields
+            $.validator.addMethod("summernoteNotEmpty", function(value, element) {
+                var content = $(element).summernote('isEmpty') ? '' : $(element).val().trim();
+                return content.length > 0;
+            }, "Please enter a description");
 
             // Form validation
-            $("#howItForm").validate({
+            $("#contactForm").validate({
                 ignore: [],
                 rules: {
-
-                    title: {
+                    email: {
                         required: true,
-                        minlength: 3,
-                        maxlength: 100
+                    },
+                    phone: {
+                        required: true,
+                        maxlength: 10
+                    },
+                    address: {
+                        required: true,
+                        maxlength: 50
                     },
                     description: {
-                        summernoteNotEmpty: true,
-                    },
-
+                        required: true,
+                        summernoteNotEmpty: true
+                    }
                 },
                 messages: {
-
-                    title: {
-                        required: "Please enter a Bid On Travel title",
-                        minlength: "Title must be at least 3 characters long",
-                        maxlength: "Title cannot be more than 100 characters long"
+                    email: {
+                        required: "Please enter a e-Mail"
+                    },
+                    phone: {
+                        required: "Please enter a Phone",
+                        maxlength: "Cannot exceed 10 Digit"
+                    },
+                    address: {
+                        required: "Please enter a Address",
+                        maxlength: "Cannot exceed 50 Character"
                     },
                     description: {
-                        summernoteNotEmpty: "Please enter a description",
+                        summernoteNotEmpty: "Please enter a description"
                     },
                 },
                 errorElement: "div",
                 errorClass: "text-danger",
                 errorPlacement: function(error, element) {
-                    if (element.attr("id") === "summernote") {
+                    if (element.hasClass("summernote")) {
                         error.insertAfter(element.siblings(".note-editor"));
-                    } else if (element.hasClass("custom-file-input")) {
-                        error.insertAfter(element.parent());
                     } else {
                         error.insertAfter(element);
                     }
                 },
                 highlight: function(element) {
                     $(element).addClass("is-invalid").removeClass("is-valid");
-                    if ($(element).attr('id') === 'summernote') {
-                        $(element).next('.note-editor').addClass("border-danger").removeClass(
+                    if ($(element).hasClass("summernote")) {
+                        $(element).siblings('.note-editor').addClass("border-danger").removeClass(
                             "border-success");
                     }
                 },
                 unhighlight: function(element) {
                     $(element).addClass("is-valid").removeClass("is-invalid");
-                    if ($(element).attr('id') === 'summernote') {
-                        $(element).next('.note-editor').addClass("border-success").removeClass(
+                    if ($(element).hasClass("summernote")) {
+                        $(element).siblings('.note-editor').addClass("border-success").removeClass(
                             "border-danger");
                     }
                 }
             });
-            // Add additional validation method for summernote not empty
-            $.validator.addMethod("summernoteNotEmpty", function(value, element) {
-                var $element = $('#' + element.id);
-                if ($element.hasClass('summernote') || $element.data('summernote')) {
-                    return !$element.summernote('isEmpty');
-                }
-                return true;
-            }, "This field is required.");
 
-            // Custom error message for summernote
-            $('#summernote').on('summernote.change', function() {
-                $("#howItForm").validate().element($(this));
-            });
-
+            // Trigger validation on Summernote content change
+            $('#summernote').on('summernote.change',
+                function() {
+                    $("#contactForm").validate().element($(this));
+                });
         });
     </script>
 @endpush

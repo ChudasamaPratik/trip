@@ -17,20 +17,34 @@ class FooterController extends Controller
     {
         try {
             if ($request->ajax()) {
-                $data = Footer::get();
+                $data = Footer::all();
+
                 return DataTables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function ($row) {
-                        $actions = '<div class="dropdown">
-                        <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                            <i class="dw dw-more"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                            <a class="dropdown-item" href="' . route('footer.edit', $row->id) . '"><i class="dw dw-edit2"></i> Edit</a>
-                            <a class="dropdown-item delete" href="' . route('footer.destroy', $row->id) . '" ><i class="dw dw-delete-3"></i> Delete</a>
-                        </div>
-                    </div>';
-                        return $actions;
+                        return '
+                        <div class="dropdown">
+                            <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                <i class="dw dw-more"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                <a class="dropdown-item" href="' . route('footer.edit', $row->id) . '">
+                                    <i class="dw dw-edit2"></i> Edit
+                                </a>
+                                <a class="dropdown-item delete" href="' . route('footer.destroy', $row->id) . '">
+                                    <i class="dw dw-delete-3"></i> Delete
+                                </a>
+                            </div>
+                        </div>';
+                    })
+                    ->editColumn('description', function ($footer) {
+                        return Str::limit(strip_tags($footer->description), 50);
+                    })
+                    ->editColumn('declaimer_description', function ($footer) {
+                        return Str::limit(strip_tags($footer->declaimer_description), 50);
+                    })
+                    ->editColumn('tc_description', function ($footer) {
+                        return Str::limit(strip_tags($footer->tc_description), 50);
                     })
                     ->addColumn('status_switch', function ($footer) {
                         $checked = $footer->status == 'active' ? 'checked' : '';
@@ -43,11 +57,11 @@ class FooterController extends Controller
                     ->rawColumns(['action', 'status_switch'])
                     ->make(true);
             }
+
             return view('backend.pages.site.footer.index');
         } catch (\Exception $e) {
             return redirect()->route('about.index')->with('error', 'Something went wrong');
         }
-
     }
 
     /**
