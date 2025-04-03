@@ -89,16 +89,22 @@ class AuctionController extends Controller
             $auction->description2 = $request->description2;
             $auction->status = $request->status ?? 'active';
 
-            // Handle image uploads
-            $auction->image = $this->uploadImage($request->file('image'));
-            $auction->image1 = $this->uploadImage($request->file('image1'));
-            $auction->image2 = $this->uploadImage($request->file('image2'));
+            // Ensure each image is uploaded separately
+            if ($request->hasFile('image')) {
+                $auction->image = $this->uploadImage($request->file('image'));
+            }
+            if ($request->hasFile('image1')) {
+                $auction->image1 = $this->uploadImage($request->file('image1'));
+            }
+            if ($request->hasFile('image2')) {
+                $auction->image2 = $this->uploadImage($request->file('image2'));
+            }
 
             $auction->save();
-            return redirect()->route('auction.index')->with('success', "Auction created successfully.");
 
+            return redirect()->route('auction.index')->with('success', "Auction created successfully.");
         } catch (\Exception $e) {
-            return redirect()->route('auction.index')->with('error', "Something went wrong.");
+            return redirect()->route('auction.index')->with('error', "Something went wrong: " . $e->getMessage());
         }
     }
 
@@ -220,7 +226,7 @@ class AuctionController extends Controller
     private function uploadImage($image)
     {
         if ($image) {
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $imageName = uniqid() . '_' . time() . '.' . $image->getClientOriginalExtension();
             $destinationPath = 'auctionSection';
 
             if (!Storage::exists('public/' . $destinationPath)) {
@@ -232,6 +238,7 @@ class AuctionController extends Controller
         }
         return null;
     }
+
     private function deleteImage($imagePath)
     {
         if ($imagePath && Storage::exists('public/auctionSection/' . $imagePath)) {

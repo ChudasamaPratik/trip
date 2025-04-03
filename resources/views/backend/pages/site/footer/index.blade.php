@@ -28,10 +28,13 @@
                 </div>
             </div>
         </div>
-
+        <!-- Simple Datatable start -->
         <div class="card-box mb-30">
-            <div class="pb-20 pt-3 p-auto">
-                <table class="Bid-table table stripe hover nowrap">
+            <div class="pd-20">
+                <h4 class="text-blue h4">Footer Content</h4>
+            </div>
+            <div class="pb-20">
+                <table class="data-table table stripe hover nowrap" id="footer-table">
                     <thead>
                         <tr>
                             <th>Id</th>
@@ -47,12 +50,13 @@
                 </table>
             </div>
         </div>
+        <!-- Simple Datatable End -->
     </div>
 @endsection
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('.Bid-table').DataTable({
+            $('#footer-table').DataTable({
                 scrollCollapse: true,
                 autoWidth: false,
                 responsive: true,
@@ -85,14 +89,7 @@
                         orderable: false,
                         searchable: false
                     },
-                ],
-                "language": {
-                    searchPlaceholder: "Search",
-                    paginate: {
-                        next: '<i class="ion-chevron-right"></i>',
-                        previous: '<i class="ion-chevron-left"></i>'
-                    }
-                },
+                ]
             });
         });
     </script>
