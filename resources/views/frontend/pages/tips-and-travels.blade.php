@@ -14,119 +14,37 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="blog-wrapper">
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="blog-item">
-                                    <div class="blog-image">
-                                        <img src="{{ asset('frontend/images/623c01d68191etr1.jpg') }}" alt="Image">
-                                    </div>
-                                    <div class="blog-content">
-                                        <div class="blog-date">
-                                            <p><i class="fa fa-clock-o"></i> Posted On : 05 May, 2022</p>
+                        <div class="row d-flex justify-content-center">
+                            @if (isset($data['tipsAndTravels']) && $data['tipsAndTravels']->count() > 0)
+                                @foreach ($data['tipsAndTravels'] as $item)
+                                    <div class="col-lg-4">
+                                        <div class="blog-item">
+                                            <div class="blog-image">
+                                                <img src="{{ asset($item->thumbnail_url) }}" alt="{{ $item->place_name }}">
+                                            </div>
+                                            <div class="blog-content">
+                                                <div class="blog-date">
+                                                    <p><i class="fa fa-clock-o"></i> Posted On :
+                                                        {{ $item->created_at->format('d M, Y') }}</p>
+                                                </div>
+                                                <h3><a href="#">{{ $item->place_name }}</a></h3>
+                                                <p><a href="#">{!! Str::limit($item->description1, 120) !!}</a></p>
+                                            </div>
                                         </div>
-                                        <h3><a href="tips-and-travels-detail.php?id=1">Getaway To The Grampians</a></h3>
-                                        <p><a href="tips-and-travels-detail.php?id=1">Located in the north west of
-                                                Victoria, The Grampians is the ideal destination for adventure seekers
-                                                and nature</a></p>
-
                                     </div>
+                                @endforeach
+                            @else
+                                <div class="no-data-container text-center py-5">
+                                    <div class="mb-4">
+                                        <i class="fa fa-info-circle fa-4x text-muted"></i>
+                                    </div>
+                                    <h3 class="mb-3">No Data Found</h3>
+                                    <p class="text-muted">The requested information is not available at the moment.</p>
                                 </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="blog-item">
-                                    <div class="blog-image">
-                                        <img src="{{ asset('frontend/images/623c01d68191etr1.jpg') }}" alt="Image">
-                                    </div>
-                                    <div class="blog-content">
-                                        <div class="blog-date">
-                                            <p><i class="fa fa-clock-o"></i> Posted On : 05 May, 2022</p>
-                                        </div>
-                                        <h3><a href="tips-and-travels-detail.php?id=2">Wonders Of The Limestone
-                                                Coast</a></h3>
-                                        <p><a href="tips-and-travels-detail.php?id=2">Stretching from the famous Coorong
-                                                in South Australia to the Glenelg River on the Victorian border, the
-                                                Limestone</a></p>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="blog-item">
-                                    <div class="blog-image">
-                                        <img src="{{ asset('frontend/images/623c01d68191etr1.jpg') }}" alt="Image">
-                                    </div>
-                                    <div class="blog-content">
-                                        <div class="blog-date">
-                                            <p><i class="fa fa-clock-o"></i> Posted On : 05 May, 2022</p>
-                                        </div>
-                                        <h3><a href="tips-and-travels-detail.php?id=3">Fun On Phillip Island</a></h3>
-                                        <p><a href="tips-and-travels-detail.php?id=3">Featuring spectacular sandy white
-                                                beaches, pristine coastlines and famous for hosting the Grand Prix,
-                                                Phillip Island is</a></p>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="blog-item">
-                                    <div class="blog-image">
-                                        <img src="{{ asset('frontend/images/623c01d68191etr1.jpg') }}" alt="Image">
-                                    </div>
-                                    <div class="blog-content">
-                                        <div class="blog-date">
-                                            <p><i class="fa fa-clock-o"></i> Posted On : 05 May, 2022</p>
-                                        </div>
-                                        <h3><a href="tips-and-travels-detail.php?id=4">Reasons To Head To The
-                                                Riverland</a></h3>
-                                        <p><a href="tips-and-travels-detail.php?id=4">Water based activities, wine
-                                                tasting, wilderness, wetlands...the Riverland has it all! With so many
-                                                attractions &amp;</a></p>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="blog-item">
-                                    <div class="blog-image">
-                                        <img src="{{ asset('frontend/images/623c01d68191etr1.jpg') }}" alt="Image">
-                                    </div>
-                                    <div class="blog-content">
-                                        <div class="blog-date">
-                                            <p><i class="fa fa-clock-o"></i> Posted On : 05 May, 2022</p>
-                                        </div>
-                                        <h3><a href="tips-and-travels-detail.php?id=5">Getaway To The Grampians</a>
-                                        </h3>
-                                        <p><a href="tips-and-travels-detail.php?id=5">Located in the north west of
-                                                Victoria, The Grampians is the ideal destination for adventure seekers
-                                                and nature</a></p>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="blog-item">
-                                    <div class="blog-image">
-                                        <img src="{{ asset('frontend/images/623c01d68191etr1.jpg') }}" alt="Image">
-                                    </div>
-                                    <div class="blog-content">
-                                        <div class="blog-date">
-                                            <p><i class="fa fa-clock-o"></i> Posted On : 05 May, 2022</p>
-                                        </div>
-                                        <h3><a href="tips-and-travels-detail.php?id=6">Wonders Of The Limestone
-                                                Coast</a></h3>
-                                        <p><a href="tips-and-travels-detail.php?id=6">Stretching from the famous
-                                                Coorong in South Australia to the Glenelg River on the Victorian border,
-                                                the Limestone</a></p>
-
-                                    </div>
-                                </div>
-                            </div>
-
+                            @endif
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </section>

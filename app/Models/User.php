@@ -68,4 +68,8 @@ class User extends Authenticatable
         }
         return asset('storage/noimage.png'); 
     }
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
 }

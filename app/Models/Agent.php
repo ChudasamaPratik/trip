@@ -12,4 +12,9 @@ class Agent extends Model
     public $incrementing = false;
  
     protected $fillable = ['id','user_id'];
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
 }

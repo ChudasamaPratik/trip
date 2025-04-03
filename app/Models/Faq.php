@@ -10,4 +10,10 @@ class Faq extends Model
     use SoftDeletes;
     protected $keyType = 'string';
     public $incrementing = false;
+
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
 }

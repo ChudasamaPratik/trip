@@ -8,65 +8,59 @@
         </div>
         <div class="section-overlay"></div>
     </section>
-    <section id="mt_about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-12">
 
-                    <div class="image-rev">
-                        <div class="blur-img"
-                            style="background-image: url({{ asset('frontend/images/623ad5a6cdbababout.jpg') }});"></div>
-                        <img src="{{ asset('frontend/images/623ad5a6cdbababout.jpg') }}" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-12 pt-5 mt-2">
-                    <div class="about_services text-center">
-                        <h4>About BidmyTrip</h4>
-                        <h2 class="text-uppercase">THIS IS A SAMPLE OF DUMMY TEXT!</h2>
-                        <p>
-                        <p>This is a sample of dummy copy text often used to show page layout and design as sample
-                            layout text by Graphic designers, Web designers, People creating templates, and many other
-                            uses. This is a sample of dummy copy text often used to show page layout and design as
-                            sample layout text by Graphic designers, Web designers, People creating templates, and many
-                            other uses. This is a sample of dummy copy text often used to show page layout and design as
-                            sample layout text by Graphic designers, Web designers, People creating templates, and many
-                            other uses.</p>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="mt_about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-12 pt-5 mt-2">
-                    <div class="about_services text-center">
-                        <h4>What We Do</h4>
-                        <h2 class="text-uppercase">THIS IS A SAMPLE OF DUMMY TEXT!</h2>
-                        <p>
-                        <p>This is a sample of dummy copy text often used to show page layout and design as sample
-                            layout text by Graphic designers, Web designers, People creating templates, and many other
-                            uses. This is a sample of dummy copy text often used to show page layout and design as
-                            sample layout text by Graphic designers, Web designers, People creating templates, and many
-                            other uses. This is a sample of dummy copy text often used to show page layout and design as
-                            sample layout text by Graphic designers, Web designers, People creating templates, and many
-                            other uses.</p>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-12">
-                    <div class="image-rev">
-                        <div class="blur-img"
-                            style="background-image: url({{ asset('frontend/images/623ad7302d38cabout2.jpg') }});">
+    @forelse($data['about'] as $index => $aboutSection)
+        <section id="mt_about">
+            <div class="container">
+                <div class="row d-flex align-items-center">
+                    @if ($index % 2 == 0)
+                        <!-- Even index: Image on left, text on right -->
+                        <div class="col-lg-6 col-md-12">
+                            <div class="image-rev">
+                                <div class="blur-img" style="background-image: url({{ asset($aboutSection->image_url) }});">
+                                </div>
+                                <img src="{{ asset($aboutSection->image_url) }}" alt="{{ $aboutSection->title }}">
+                            </div>
                         </div>
-                        <img src="{{ asset('frontend/images/623ad7302d38cabout2.jpg') }}" alt="">
-                    </div>
+                        <div class="col-lg-6 col-md-12 pt-5 mt-2">
+                            <div class="about_services text-center">
+                                <h4>{{ $aboutSection->main_title }}</h4>
+                                <h2 class="text-uppercase">{{ $aboutSection->title }}</h2>
+                                <p>{!! $aboutSection->description !!}</p>
+                            </div>
+                        </div>
+                    @else
+                        <!-- Odd index: Text on left, image on right -->
+                        <div class="col-lg-6 col-md-12 pt-5 mt-2">
+                            <div class="about_services text-center">
+                                <h4>{{ $aboutSection->main_title }}</h4>
+                                <h2 class="text-uppercase">{{ $aboutSection->title }}</h2>
+                                <p>{!! $aboutSection->description !!}</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="image-rev">
+                                <div class="blur-img" style="background-image: url({{ asset($aboutSection->image) }});">
+                                </div>
+                                <img src="{{ asset($aboutSection->image) }}" alt="{{ $aboutSection->title }}">
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
+        </section>
+    @empty
+        <!-- No About Sections Found -->
+        <div class="no-data-container text-center py-5">
+            <div class="mb-4">
+                <i class="fa fa-info-circle fa-4x text-muted"></i>
+            </div>
+            <h3 class="mb-3">No About Content Found</h3>
+            <p class="text-muted">About information is not available at the moment.</p>
         </div>
-    </section>
-    <section class="blog pb-5 ">
+    @endforelse
+
+    <section class="blog pb-5">
         <div class="container">
             <div class="row text-center">
                 <div class="col-lg-12">
@@ -77,46 +71,34 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 mar-bottom-30">
-                    <div class="blog-item">
-                        <div class="blog-image">
-                            <img src="{{ asset('frontend/images/623adb7168579u2.jpg') }}" alt="Image" width="">
-                        </div>
-                        <div class="blog-content">
-                            <h4 class="text-blue">demo demo <span class="text-dark">&#124;</span> SDO</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mar-bottom-30">
-                    <div class="blog-item">
-                        <div class="blog-image">
-                            <img src="{{ asset('frontend/images/62415030a46e0u2.jpg') }}" alt="Image" width="">
-                        </div>
-                        <div class="blog-content">
-                            <h4 class="text-blue">Sandeep Gupta <span class="text-dark">&#124;</span> CEO</h4>
+
+                @forelse($data['teams'] as $team)
+                    <div class="col-lg-3 col-md-6 mar-bottom-30">
+                        <div class="blog-item">
+                            <div class="blog-image">
+                                <img src="{{ asset($team->image_url) }}" alt="{{ $team->first_name . $team->last_name }}"
+                                    width="">
+                            </div>
+                            <div class="blog-content">
+                                <h4 class="text-blue">{{ ucfirst($team->first_name) . ' ' . ucfirst($team->last_name) }}
+                                    <span class="text-dark">&#124;</span>
+                                    {{ $team->designation }}
+                                </h4>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mar-bottom-30">
-                    <div class="blog-item">
-                        <div class="blog-image">
-                            <img src="{{ asset('frontend/images/623adb7168579u2.jpg') }}" alt="Image" width="">
-                        </div>
-                        <div class="blog-content">
-                            <h4 class="text-blue">demo demo <span class="text-dark">&#124;</span> SDO</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mar-bottom-30">
-                    <div class="blog-item">
-                        <div class="blog-image">
-                            <img src="{{ asset('frontend/images/62415030a46e0u2.jpg') }}" alt="Image" width="">
-                        </div>
-                        <div class="blog-content">
-                            <h4 class="text-blue">Sandeep Gupta <span class="text-dark">&#124;</span> CEO</h4>
+                @empty
+                    <!-- No Team Members Found -->
+                    <div class="col-12">
+                        <div class="no-data-container text-center py-5">
+                            <div class="mb-4">
+                                <i class="fa fa-users fa-4x text-muted"></i>
+                            </div>
+                            <h3 class="mb-3">No Team Members Found</h3>
+                            <p class="text-muted">Team information is not available at the moment.</p>
                         </div>
                     </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </section>

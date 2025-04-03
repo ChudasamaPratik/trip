@@ -18,37 +18,18 @@ use App\Http\Controllers\Backend\TeamController;
 use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\Backend\TipsAndTravelsController;
 use App\Http\Controllers\Backend\UserManagementController;
+use App\Http\Controllers\Frontend\WebSiteController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('frontend.pages.home');
-});
 
-Route::get('/about', function () {
-    return view('frontend.pages.about');
-})->name('about');
-
-Route::get('/auctions', function () {
-    return view('frontend.pages.auctions');
-})->name('auctions');
-
-Route::get('/tips-and-travels', function () {
-    return view('frontend.pages.tips-and-travels');
-})->name('tips-and-travels');
-
-Route::get('/bid-on-travel', function () {
-    return view('frontend.pages.bid-on-travel');
-})->name('bid-on-travel');
-
-
-Route::get('/faq', function () {
-    return view('frontend.pages.faq');
-})->name('faq');
-
-Route::get('/contact-us', function () {
-    return view('frontend.pages.contact-us');
-})->name('contact-us');
+Route::get('/', [WebSiteController::class, 'index']);
+Route::get('/about', [WebSiteController::class, 'about'])->name('about');
+Route::get('/auctions', [WebSiteController::class, 'auction'])->name('auctions');
+Route::get('/tips-and-travels', [WebSiteController::class, 'tipsAndTravels'])->name('tips-and-travels');
+Route::get('/bid-on-travel', [WebSiteController::class, 'bidOnTravel'])->name('bid-on-travel');
+Route::get('/faq', [WebSiteController::class, 'faq'])->name('faq');
+Route::get('/contact-us', [WebSiteController::class, 'contactUs'])->name('contact-us');
 
 Auth::routes();
 
@@ -69,19 +50,10 @@ Route::get('/agent/dashboard', function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 Route::prefix('admin')->group(function () {
+    Route::get('dashboard', function () {
+        return view('backend.pages.admin_dashboard');
+    })->name('admin.dashboard');
     //Permission
     Route::resource('permissions', PermissionController::class)->only(['index', 'store', 'update']);
     //Role
