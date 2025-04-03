@@ -88,7 +88,6 @@
 @endsection
 
 @push('scripts')
-
     <script>
         $.validator.addMethod("email_regex", function(value, element) {
             return this.optional(element) || /^([a-z_0-9"]+)([a-z0-9_\+-\."]+)@([a-z0-9_\-\.]+)\.([a-z]{2,5})$/i

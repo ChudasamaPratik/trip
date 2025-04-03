@@ -177,7 +177,6 @@
                     },
                     description: {
                         summernoteNotEmpty: true,
-                        maxlength: 1000
                     },
                     image: {
                         extension: "jpg|jpeg|png|gif"
@@ -196,7 +195,6 @@
                     },
                     description: {
                         summernoteNotEmpty: "Please enter a description",
-                        maxlength: "Description cannot be more than 500 characters long"
                     },
                     image: {
                         extension: "Please select a valid image file (jpg, jpeg, png, or gif)"

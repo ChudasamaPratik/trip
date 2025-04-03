@@ -28,14 +28,13 @@
                 </div>
                 <div class="col-md-6 col-sm-12 text-right">
                     <div class="dropdown">
-                        <a class="btn btn-secondary" href="{{ route('about.index') }}">
+                        <a class="btn btn-secondary" href="{{ route('auction.index') }}">
                             <i class="fa fa-list"></i> Back to List
                         </a>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="pd-20 card-box mb-30">
             <div class="clearfix mb-3">
                 <div class="pull-left">

@@ -111,7 +111,6 @@
                     description: {
                         required: true,
                         summernoteNotEmpty: true,
-                        maxlength: 1000
                     },
                 },
                 messages: {
@@ -123,7 +122,6 @@
                     description: {
                         required: "Please enter a about title",
                         summernoteNotEmpty: "Please enter a description",
-                        maxlength: "Description cannot be more than 500 characters long"
                     },
                 },
                 errorElement: "div",

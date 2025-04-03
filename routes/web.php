@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\Backend\AuctionController;
 use App\Http\Controllers\Backend\BidOnTravelController;
 use App\Http\Controllers\Backend\BlogController;
+use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Backend\FAQController;
 use App\Http\Controllers\Backend\FeaturedDestinationController;
 use App\Http\Controllers\Backend\FooterController;
@@ -131,4 +132,8 @@ Route::prefix('admin')->group(function () {
     // Footer 
     Route::resource('footer', FooterController::class);
     Route::post('footer/change-status/{id}', [FooterController::class, 'changeStatus'])->name('footer.change.status');
+
+    //Contact
+    Route::resource('contact', ContactController::class);
+    Route::post('contact/change-status/{id}', [ContactController::class, 'changeStatus'])->name('contact.change.status');
 });

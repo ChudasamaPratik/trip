@@ -290,7 +290,6 @@
                     },
                     description1: {
                         summernoteNotEmpty: true,
-                        maxlength: 500
                     },
                     image1: {
                         required: true,
@@ -298,7 +297,6 @@
                     },
                     description2: {
                         summernoteNotEmpty: true,
-                        maxlength: 500
                     },
                     image2: {
                         required: true,
@@ -326,7 +324,6 @@
                     },
                     description1: {
                         summernoteNotEmpty: "Please enter a description",
-                        maxlength: "Description cannot be more than 500 characters long"
                     },
                     image1: {
                         required: "Please select an image for the Auction",
@@ -334,7 +331,6 @@
                     },
                     description2: {
                         summernoteNotEmpty: "Please enter a description",
-                        maxlength: "Description cannot be more than 500 characters long"
                     },
                     image2: {
                         required: "Please select an image for the Auction",
