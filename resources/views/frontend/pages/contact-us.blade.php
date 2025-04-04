@@ -17,6 +17,7 @@
                     <div id="contact-form" class="contact-form">
                         <div id="contactform-error-msg"></div>
                         <form method="POST" id="conform" autocomplete="off">
+                            @csrf
                             <div class="row">
                                 <div class="form-group col-lg-12">
                                     <label>Name:</label>
@@ -38,10 +39,7 @@
                                     <textarea name="message" placeholder="Enter a message" id="message"></textarea>
                                 </div>
 
-                                <div class="form-group col-lg-12">
-                                    <div class="g-recaptcha" data-sitekey="6LcFfhAUAAAAAM-OQbebKGpCxrT_-xkr_rEVXCfu">
-                                    </div>
-                                </div>
+                                <!-- reCAPTCHA removed -->
 
                                 <div class="col-lg-12">
                                     <div class="comment-btn">
@@ -56,20 +54,28 @@
                     <div class="contact-about footer-margin">
                         <h4>Let's Start a Conversation</h4>
 
-                        <p>{!! $contactUs->description !!}</p>
+                        <p>{!! isset($contactUs) && isset($contactUs->description)
+                            ? $contactUs->description
+                            : 'We\'re here to help with any questions about our travel bidding platform. Get in touch with our team today!' !!}</p>
 
                         <div class="contact-location">
                             <ul>
                                 <li><i class="flaticon-maps-and-flags" aria-hidden="true"></i>
-                                    {{ $contactUs->address }}</li>
-                                <li><i class="flaticon-phone-call"></i> (+91)-{{ $contactUs->phone }}</li>
-                                <li><i class="flaticon-mail"></i> <a href="{{ $contactUs->email }}" class="__cf_email__"
-                                        data-cfemail="">{{ $contactUs->email }}</a></li>
+                                    {{ isset($contactUs) && isset($contactUs->address) ? $contactUs->address : 'Our main office address' }}
+                                </li>
+                                <li><i class="flaticon-phone-call"></i>
+                                    {{ isset($contactUs) && isset($contactUs->phone) ? '(+91)-' . $contactUs->phone : 'Contact phone number' }}
+                                </li>
+                                <li><i class="flaticon-mail"></i> <a
+                                        href="mailto:{{ isset($contactUs) && isset($contactUs->email) ? $contactUs->email : 'info@bidmytrip.com' }}"
+                                        class="__cf_email__"
+                                        data-cfemail="">{{ isset($contactUs) && isset($contactUs->email) ? $contactUs->email : 'info@bidmytrip.com' }}</a>
+                                </li>
                             </ul>
                         </div>
                         <div class="footer-social-links">
                             <ul>
-                                @if ($footer->facebook_link)
+                                @if (isset($footer) && $footer->facebook_link)
                                     <li class="social-icon"><a href="{{ $footer->facebook_link }}" target="_blank"><i
                                                 class="fa fa-facebook" aria-hidden="true"></i></a></li>
                                 @else
@@ -77,7 +83,7 @@
                                                 aria-hidden="true"></i></a></li>
                                 @endif
 
-                                @if ($footer->instagram_link)
+                                @if (isset($footer) && $footer->instagram_link)
                                     <li class="social-icon"><a href="{{ $footer->instagram_link }}" target="_blank"><i
                                                 class="fa fa-instagram" aria-hidden="true"></i></a></li>
                                 @else
@@ -85,7 +91,7 @@
                                                 aria-hidden="true"></i></a></li>
                                 @endif
 
-                                @if ($footer->twitter_link)
+                                @if (isset($footer) && $footer->twitter_link)
                                     <li class="social-icon"><a href="{{ $footer->twitter_link }}" target="_blank"><i
                                                 class="fa fa-twitter" aria-hidden="true"></i></a></li>
                                 @else
@@ -93,7 +99,7 @@
                                                 aria-hidden="true"></i></a></li>
                                 @endif
 
-                                @if ($footer->youtube_link)
+                                @if (isset($footer) && $footer->youtube_link)
                                     <li class="social-icon"><a href="{{ $footer->youtube_link }}" target="_blank"><i
                                                 class="fa fa-youtube" aria-hidden="true"></i></a></li>
                                 @else
@@ -110,6 +116,7 @@
 @endsection
 
 @push('scripts')
+    <!-- reCAPTCHA script removed -->
     <script>
         $.validator.addMethod("email_regex", function(value, element) {
             return this.optional(element) || /^([a-z_0-9"]+)([a-z0-9_\+-\."]+)@([a-z0-9_\-\.]+)\.([a-z]{2,5})$/i
@@ -131,52 +138,86 @@
             errorClass: 'help-inline',
 
             rules: {
-
                 email: {
                     required: true,
                     email_regex: true
                 },
-
                 name: {
                     required: true,
                     name_regex: true
                 },
-
                 phone: {
                     required: true,
                     phone_regex: true
                 },
-
                 message: {
                     required: true,
                 },
-
             },
 
             messages: {
-
                 email: {
                     required: "Email Is Required",
                     email_regex: "Email Address Is Not Valid "
                 },
-
                 name: {
                     required: "Name Is Required",
                     name_regex: "Name Is Not Valid "
                 },
-
                 phone: {
                     required: "Phone Number Is Required",
                     phone_regex: "Number Is Not Valid "
                 },
-
                 message: {
                     required: " Message Is Required"
                 },
-
             },
+
             submitHandler: function(form) {
-                form.submit();
+                event.preventDefault();
+
+                var formData = {
+                    name: $('#name').val(),
+                    email: $('#email').val(),
+                    phone: $('#phone').val(),
+                    message: $('#message').val(),
+                    _token: $('input[name="_token"]').val()
+                };
+
+                $('.btn-red').val('Sending...').prop('disabled', true);
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('contact-us.store') }}",
+                    data: formData,
+                    dataType: "json",
+                    success: function(response) {
+                        $('#conform')[0].reset();
+
+                        toastr.success(response.message);
+
+                        $('.btn-red').val('Send Message').prop('disabled', false);
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 422) {
+                            var errors = xhr.responseJSON.errors;
+
+                            if (errors) {
+                                $.each(errors, function(key, value) {
+                                    toastr.error(value);
+                                });
+                            } else {
+                                toastr.error('Validation error occurred. Please check your input.');
+                            }
+                        } else if (xhr.status === 429) {
+                            toastr.error('Too many attempts. Please try again later.');
+                        } else {
+                            toastr.error('An error occurred. Please try again.');
+                        }
+
+                        $('.btn-red').val('Send Message').prop('disabled', false);
+                    }
+                });
             }
         });
     </script>

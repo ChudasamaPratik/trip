@@ -30,26 +30,24 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [WebSiteController::class, 'index']);
 Route::get('/about', [WebSiteController::class, 'about'])->name('about');
 Route::get('/auctions', [WebSiteController::class, 'auction'])->name('auctions');
+Route::get('/auction/{id}', [WebSiteController::class, 'auctionDetails'])->name('auction.details');
 Route::get('/tips-and-travels', [WebSiteController::class, 'tipsAndTravels'])->name('tips-and-travels');
+Route::get('/tips-and-travel/{id}', [WebSiteController::class, 'tipsAndTravelDetails'])->name('tips-and-travel.details');
+Route::post('tips-travels/comment', [WebSiteController::class, 'tipsAndTravelStoreComment'])->name('tips.travels.comment');
 Route::get('/bid-on-travel', [WebSiteController::class, 'bidOnTravel'])->name('bid-on-travel');
 Route::get('/faq', [WebSiteController::class, 'faq'])->name('faq');
 Route::get('/contact-us', [WebSiteController::class, 'contactUs'])->name('contact-us');
+Route::post('/contact-us', [WebSiteController::class, 'contactUsStore'])->name('contact-us.store');
 
 Auth::routes();
 
-
-
-Route::get('/admin/dashboard', function () {
-    return view('backend.pages.admin_dashboard');
-})->name('admin.dashboard');
-
 Route::get('/user/dashboard', function () {
     return view('backend.pages.user_dashboard');
-})->name('user.dashboard');
+})->name('user.dashboard')->middleware(['auth', 'role:user']);
 
 Route::get('/agent/dashboard', function () {
     return view('backend.pages.agent_dashboard');
-})->name('agent.dashboard');
+})->name('agent.dashboard')->middleware(['auth', 'role:agent']);
 
 // Route::prefix('user')->group(function () {
 
@@ -59,7 +57,7 @@ Route::get('/agent/dashboard', function () {
 // });
 
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('dashboard', function () {
         return view('backend.pages.admin_dashboard');
     })->name('admin.dashboard');
@@ -99,8 +97,9 @@ Route::prefix('admin')->group(function () {
     Route::resource('home-banner', HomeBannerController::class);
     Route::post('home-banner/change-status/{id}', [HomeBannerController::class, 'changeStatus'])->name('home-banner.change.status');
 
-    // tips & travels   tips-and-travels.show
+    // tips & travels   
     Route::resource('tips-and-travels', TipsAndTravelsController::class);
+    Route::get('tips-and-travels/comments/list', [TipsAndTravelsController::class, 'comments'])->name('tips-and-travels.comments');
     Route::post('tips-and-travels/change-status/{id}', [TipsAndTravelsController::class, 'changeStatus'])->name('tips-and-travels.change.status');
 
     //Blog
@@ -143,6 +142,7 @@ Route::prefix('admin')->group(function () {
 
     //Contact
     Route::resource('contact', ContactController::class);
+    Route::get('contact/enquires/list', [ContactController::class, 'contactEnquires'])->name('contact.enquires');
     Route::post('contact/change-status/{id}', [ContactController::class, 'changeStatus'])->name('contact.change.status');
 
     // Bid
