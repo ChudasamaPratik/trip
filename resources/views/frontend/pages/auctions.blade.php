@@ -1,4 +1,5 @@
 @extends('frontend.layout.main')
+@section('title', 'Auctions')
 @section('content')
     <section class="breadcrumb-outer text-center">
         <div class="container">
@@ -29,7 +30,8 @@
                                                     <p><i class="fa fa-clock-o"></i> Posted On :
                                                         {{ $auction->created_at->format('d M, Y') }}</p>
                                                 </div>
-                                                <h3><a href="#">{{ $auction->title }}</a>
+                                                <h3><a
+                                                        href="{{ route('auction.details', $auction->id) }}">{{ $auction->title }}</a>
                                                 </h3>
                                                 <p>{!! Str::limit($auction->description1, 300) !!}</p>
                                             </div>

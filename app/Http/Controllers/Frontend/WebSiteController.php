@@ -7,7 +7,6 @@ use App\Models\AboutSection;
 use App\Models\Auction;
 use App\Models\BidTravelsSection;
 use App\Models\Blog;
-use App\Models\ContactContent;
 use App\Models\Destination;
 use App\Models\Faq;
 use App\Models\Footer;
@@ -17,8 +16,11 @@ use App\Models\Slider;
 use App\Models\Team;
 use App\Models\Testimonial;
 use App\Models\TipsTravel;
+use App\Models\TipsTravelsComment;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class WebSiteController extends Controller
 {
@@ -59,6 +61,15 @@ class WebSiteController extends Controller
             return redirect()->back()->with('error', 'Something went wrong');
         }
     }
+    public function auctionDetails(string $id)
+    {
+        try {
+            $auction = Auction::find($id);
+            return view('frontend.pages.auctions-detail', compact('auction'));
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
+    }
 
     public function tipsAndTravels()
     {
@@ -67,6 +78,54 @@ class WebSiteController extends Controller
             return view('frontend.pages.tips-and-travels', compact('data'));
         } catch (Exception $e) {
             return redirect()->back()->with('error', 'Something went wrong');
+        }
+    }
+    public function tipsAndTravelDetails(string $id)
+    {
+        try {
+            $tipsTravel = TipsTravel::find($id);
+            return view('frontend.pages.tips-and-travels-detail', compact('tipsTravel'));
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
+    }
+    public function tipsAndTravelStoreComment(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'tips_travel_id' => 'required|exists:tips_travel,id',
+                'name' => 'required|string|min:2|max:255',
+                'email' => 'required|email|max:255',
+                'message' => 'required|string|min:10',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validation failed',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            $comment = new TipsTravelsComment();
+            $comment->id = Str::uuid();
+            $comment->tips_travel_id = $request->tips_travel_id;
+            $comment->name = $request->name;
+            $comment->email = $request->email;
+            $comment->message = $request->message;
+            $comment->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Thank you for your comment!',
+                'data' => $comment
+            ], 201);
+        } catch (Exception $e) {
+dd($e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong. Please try again later.'
+            ], 500);
         }
     }
 

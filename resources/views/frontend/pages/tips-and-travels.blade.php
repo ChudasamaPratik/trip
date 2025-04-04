@@ -1,4 +1,5 @@
 @extends('frontend.layout.main')
+@section('title', 'Tips & Travels')
 @section('content')
     <section class="breadcrumb-outer text-center">
         <div class="container">
@@ -27,8 +28,12 @@
                                                     <p><i class="fa fa-clock-o"></i> Posted On :
                                                         {{ $item->created_at->format('d M, Y') }}</p>
                                                 </div>
-                                                <h3><a href="#">{{ $item->place_name }}</a></h3>
-                                                <p><a href="#">{!! Str::limit($item->description1, 120) !!}</a></p>
+                                                <h3><a
+                                                        href="{{ route('tips-and-travel.details', $item->id) }}">{{ $item->place_name }}</a>
+                                                </h3>
+                                                <p>{{ Str::limit(strip_tags($item->description1), 150) }}</p>
+                                                <a href="{{ route('tips-and-travel.details', $item->id) }}"
+                                                    class="read-more">Read More</a>
                                             </div>
                                         </div>
                                     </div>

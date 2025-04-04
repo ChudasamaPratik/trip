@@ -11,6 +11,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend/images/logo1.png') }}">
     <link href="{{ asset('frontend/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('frontend/css/style.css') }}" rel="stylesheet" type="text/css">
@@ -19,7 +20,8 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}">
     <script async src="{{ asset('frontend/js/invisible.js') }}"></script>
     <script src="https://www.google.com/recaptcha/api.js') }}"></script>
-
+    {{-- Toaster --}}
+    <link rel="stylesheet" href="{{ asset('lib/toaster/toastr.min.css') }}">
     @stack('styles')
 </head>
 
@@ -50,6 +52,8 @@
     <script src="{{ asset('frontend/js/bootstrap-select.min.js') }}"></script>
     <script src="{{ asset('lib/jquery_validate/jquery.validate.js') }}"></script>
     {{-- <script src="{{ asset('frontend/js/custom-countdown.js') }}"></script> --}}
+    {{-- Toaster --}}
+    <script src="{{ asset('lib/toaster/toastr.min.js') }}"></script>
     <script type="text/javascript">
         (function() {
             window['__CF&#8377;cv&#8377;params'] = {
