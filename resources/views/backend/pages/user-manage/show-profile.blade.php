@@ -125,7 +125,7 @@
                                 <!-- Agent Details section if available -->
                                 @if($user->agentDetails)
                                 <div class="mt-4">
-                                    <h4 class="text-blue pb-2 border-bottom">Agent Information</h4>
+                                    <h4 class="text-blue pb-2 border-bottom">Additional Details</h4>
                                     <div class="row mt-3">
                                         <div class="col-md-6 mb-3">
                                             <h5 class="text-primary">Agency Name</h5>

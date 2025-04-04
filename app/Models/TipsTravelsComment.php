@@ -10,4 +10,8 @@ class TipsTravelsComment extends Model
     use SoftDeletes;
     protected $keyType = 'string';
     public $incrementing = false;
+
+    public function tipsTravel(){
+        return $this->belongsTo(TipsTravel::class);
+    }
 }

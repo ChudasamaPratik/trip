@@ -37,27 +37,22 @@ Route::post('tips-travels/comment', [WebSiteController::class, 'tipsAndTravelSto
 Route::get('/bid-on-travel', [WebSiteController::class, 'bidOnTravel'])->name('bid-on-travel');
 Route::get('/faq', [WebSiteController::class, 'faq'])->name('faq');
 Route::get('/contact-us', [WebSiteController::class, 'contactUs'])->name('contact-us');
+Route::post('/contact-us', [WebSiteController::class, 'contactUsStore'])->name('contact-us.store');
 
 Auth::routes();
 
-
-
-Route::get('/admin/dashboard', function () {
-    return view('backend.pages.admin_dashboard');
-})->name('admin.dashboard');
-
 Route::get('/user/dashboard', function () {
     return view('backend.pages.user_dashboard');
-})->name('user.dashboard');
+})->name('user.dashboard')->middleware(['auth', 'role:user']);
 
 Route::get('/agent/dashboard', function () {
     return view('backend.pages.agent_dashboard');
-})->name('agent.dashboard');
+})->name('agent.dashboard')->middleware(['auth', 'role:agent']);
 
 
 
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('dashboard', function () {
         return view('backend.pages.admin_dashboard');
     })->name('admin.dashboard');
@@ -97,8 +92,9 @@ Route::prefix('admin')->group(function () {
     Route::resource('home-banner', HomeBannerController::class);
     Route::post('home-banner/change-status/{id}', [HomeBannerController::class, 'changeStatus'])->name('home-banner.change.status');
 
-    // tips & travels   tips-and-travels.show
+    // tips & travels   
     Route::resource('tips-and-travels', TipsAndTravelsController::class);
+    Route::get('tips-and-travels/comments/list', [TipsAndTravelsController::class, 'comments'])->name('tips-and-travels.comments');
     Route::post('tips-and-travels/change-status/{id}', [TipsAndTravelsController::class, 'changeStatus'])->name('tips-and-travels.change.status');
 
     //Blog
@@ -141,6 +137,7 @@ Route::prefix('admin')->group(function () {
 
     //Contact
     Route::resource('contact', ContactController::class);
+    Route::get('contact/enquires/list', [ContactController::class, 'contactEnquires'])->name('contact.enquires');
     Route::post('contact/change-status/{id}', [ContactController::class, 'changeStatus'])->name('contact.change.status');
 
     // Bid

@@ -7,6 +7,7 @@ use App\Models\AboutSection;
 use App\Models\Auction;
 use App\Models\BidTravelsSection;
 use App\Models\Blog;
+use App\Models\Contact;
 use App\Models\Destination;
 use App\Models\Faq;
 use App\Models\Footer;
@@ -121,7 +122,6 @@ class WebSiteController extends Controller
                 'data' => $comment
             ], 201);
         } catch (Exception $e) {
-dd($e->getMessage());
             return response()->json([
                 'success' => false,
                 'message' => 'Something went wrong. Please try again later.'
@@ -155,6 +155,44 @@ dd($e->getMessage());
             return view('frontend.pages.contact-us');
         } catch (Exception $e) {
             return redirect()->back()->with('error', 'Something went wrong');
+        }
+    }
+    public function contactUsStore(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string|max:100|regex:/^[a-zA-Z ]{2,100}$/',
+                'email' => 'required|email',
+                'phone' => 'required|regex:/^[0-9]{1}[0-9]{9}$/',
+                'message' => 'required|string'
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+
+            $contact = new Contact();
+            $contact->id = Str::uuid();
+            $contact->name = $request->name;
+            $contact->email = $request->email;
+            $contact->phone = $request->phone;
+            $contact->message = $request->message;
+            $contact->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Thank you for contacting us. We will get back to you soon.'
+            ]);
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while processing your request. Please try again later.'
+            ], 500);
         }
     }
 }

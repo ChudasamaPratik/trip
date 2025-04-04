@@ -9,38 +9,38 @@
                                 <h3>BidmyTrip</h3>
                             </div>
                             <div class="about-location">
-                                <p>{!! $footer->description !!}</p>
+                                <p>{!! isset($footer) && isset($footer->description) ? $footer->description : 'Plan and bid on your next trip with us!' !!}</p>
                             </div>
                             <div class="footer-social-links">
                                 <ul>
-                                    @if ($footer->facebook_link)
+                                    @if (isset($footer) && $footer->facebook_link)
                                         <li class="social-icon"><a href="{{ $footer->facebook_link }}" target="_blank"><i
                                                     class="fa fa-facebook" aria-hidden="true"></i></a></li>
                                     @endif
 
-                                    @if ($footer->instagram_link)
+                                    @if (isset($footer) && $footer->instagram_link)
                                         <li class="social-icon"><a href="{{ $footer->instagram_link }}"
                                                 target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a>
                                         </li>
                                     @endif
 
-                                    @if ($footer->twitter_link)
+                                    @if (isset($footer) && $footer->twitter_link)
                                         <li class="social-icon"><a href="{{ $footer->twitter_link }}" target="_blank"><i
                                                     class="fa fa-twitter" aria-hidden="true"></i></a></li>
                                     @endif
 
-                                    @if ($footer->youtube_link)
+                                    @if (isset($footer) && $footer->youtube_link)
                                         <li class="social-icon"><a href="{{ $footer->youtube_link }}" target="_blank"><i
                                                     class="fa fa-youtube" aria-hidden="true"></i></a></li>
                                     @endif
 
-                                    @if ($footer->linkedin_link)
+                                    @if (isset($footer) && $footer->linkedin_link)
                                         <li class="social-icon"><a href="{{ $footer->linkedin_link }}"
                                                 target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
                                         </li>
                                     @endif
 
-                                    @if ($footer->whatsapp_link)
+                                    @if (isset($footer) && $footer->whatsapp_link)
                                         <li class="social-icon"><a href="{{ $footer->whatsapp_link }}"
                                                 target="_blank"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
                                         </li>
@@ -92,20 +92,20 @@
                         <div class="footer-links-list footer-margin">
                             <h3>Get In Touch</h3>
                             <ul>
-                                @if ($contactUs)
+                                @if (isset($contactUs) && $contactUs)
                                     <li><i class="fa fa-home" aria-hidden="true"></i> <a
-                                            href="javascript:void(0)">{{ $contactUs->address }}</a></li>
+                                            href="javascript:void(0)">{{ $contactUs->address ?? 'Address information unavailable' }}</a></li>
                                     <li><i class="flaticon-phone-call"></i> <a
-                                            href="tel:{{ $contactUs->phone }}">{{ $contactUs->phone }}</a></li>
-                                    <li><i class="flaticon-mail"></i> <a href="mailto:{{ $contactUs->email }}"
-                                            class="__cf_email__">{{ $contactUs->email }}</a></li>
+                                            href="tel:{{ $contactUs->phone ?? '' }}">{{ $contactUs->phone ?? 'Phone information unavailable' }}</a></li>
+                                    <li><i class="flaticon-mail"></i> <a href="mailto:{{ $contactUs->email ?? '' }}"
+                                            class="__cf_email__">{{ $contactUs->email ?? 'Email information unavailable' }}</a></li>
                                 @else
                                     <li><i class="fa fa-home" aria-hidden="true"></i> <a href="javascript:void(0)">ABC,
                                             your city, state, country</a></li>
                                     <li><i class="flaticon-phone-call"></i> <a
                                             href="tel:0123-45678">(+91)-0123-45678</a></li>
-                                    <li><i class="flaticon-mail"></i> <a href="mailto:abc@yourdomain.com"
-                                            class="__cf_email__">abc@yourdomain.com</a></li>
+                                    <li><i class="flaticon-mail"></i> <a href="mailto:info@bidmytrip.com"
+                                            class="__cf_email__">info@bidmytrip.com</a></li>
                                 @endif
                             </ul>
                         </div>
@@ -122,15 +122,15 @@
                         <p><i class="fa fa-copyright" aria-hidden="true"></i> Copyright {{ date('Y') }} <a
                                 href="{{ url('/') }}" target="_blank">BidmyTrip</a> | All rights reserved.</p>
                         <h5 class="text-white mt-2 mb-0">We Accept </h5>
-                        <img src="{{ asset('frontend/images/payment.png') }}" alt="" class="paymentimg">
+                        <img src="{{ asset('frontend/images/payment.png') }}" alt="Payment methods" class="paymentimg">
                     </div>
                 </div>
                 <div class="col-lg-6 pt-3">
                     <div class="copyright-content">
-                        <p><a href="javascript:void(0)">Disclaimer:</a> {!! $footer->declaimer_description !!}</p>
+                        <p><a href="javascript:void(0)">Disclaimer:</a> {!! isset($footer) && isset($footer->declaimer_description) ? $footer->declaimer_description : 'Terms and conditions apply to all services offered.' !!}</p>
                     </div>
                     <div class="copyright-content pt-1">
-                        <p><a href="javascript:void(0)">T&C:</a> {!! $footer->tc_description !!}</p>
+                        <p><a href="javascript:void(0)">T&C:</a> {!! isset($footer) && isset($footer->tc_description) ? $footer->tc_description : 'Please refer to our Terms of Use page for complete details.' !!}</p>
                     </div>
                 </div>
             </div>
