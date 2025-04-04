@@ -51,7 +51,12 @@ Route::get('/agent/dashboard', function () {
     return view('backend.pages.agent_dashboard');
 })->name('agent.dashboard');
 
+// Route::prefix('user')->group(function () {
 
+//     Route::get('/user/dashboard', function () {
+//         return view('backend.pages.user_dashboard');
+//     })->name('user.dashboard');
+// });
 
 
 Route::prefix('admin')->group(function () {
