@@ -31,7 +31,7 @@
                             </ul>
                         </li>
 
-                        {{-- <li><a href="{{ route('bid-on-travel.index') }}"> Bid & Travel </a></li> --}}
+                        <li><a href="{{ route('bid.index') }}">Latest Bid</a></li>
                         <li class="dropdown">
                             <a href="javascript:;" class="dropdown-toggle">
                                 <span class="micon fa fa-plane"></span><span class="mtext">Bid & Travels</span>

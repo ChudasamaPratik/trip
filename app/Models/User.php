@@ -64,9 +64,9 @@ class User extends Authenticatable
     public function getImageUrlAttribute()
     {
         if ($this->image) {
-            return asset('storage/user_profile/' . $this->image);
+            return asset('storage/adminProfile_image/' . $this->image);
         }
-        return asset('storage/noimage.png'); 
+        return asset('storage/noimage.png');
     }
     public function scopeActive($query)
     {
