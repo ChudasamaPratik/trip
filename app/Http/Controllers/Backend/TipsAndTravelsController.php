@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\TipsTravel;
+use App\Models\TipsTravelsComment;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Str;
@@ -301,6 +303,54 @@ class TipsAndTravelsController extends Controller
                 'success' => false,
                 'message' => 'Failed to change Tips & Travels status!'
             ]);
+        }
+    }
+    public function comments(Request $request)
+    {
+        try {
+            if ($request->ajax()) {
+                $data = TipsTravelsComment::with('tipsTravel:id,place_name')->get();
+                return DataTables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('action', function ($row) {
+                        $actions = '<div class="dropdown">
+                                        <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="dw dw-more"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                            <a class="dropdown-item delete" href="' . route('tips-and-travels.destroy', $row->id) . '">
+                                                <i class="dw dw-delete-3"></i> Delete
+                                            </a>
+                                        </div>
+                                    </div>';
+                        return $actions;
+                    })
+                    ->editColumn('date', function ($faq) {
+                        return Carbon::parse($faq->created_at)->format('d F, Y');
+                    })
+                    ->editColumn('message', function ($row) {
+                        if (!empty($row->message)) {
+                            $truncatedMessage = Str::limit($row->message, 30);
+                            $fullMessage = htmlspecialchars($row->message, ENT_QUOTES);
+    
+                            if (strlen($row->message) > 30) {
+                                return "<span class='truncated-message' data-full='{$fullMessage}'>{$truncatedMessage} <a href='#' class='read-more-link'>Read More</a></span>";
+                            }
+    
+                            return $truncatedMessage;
+                        } else {
+                            return '-';
+                        }
+                    })
+                    ->addColumn('place_name', function ($faq) {
+                        return $faq->tipsTravel->place_name;
+                    })
+                    ->rawColumns(['action','message'])
+                    ->make(true);
+            }
+            return view('backend.pages.site.tips-travels.comments');
+        } catch (Exception $e) {
+            return redirect()->route('tips-and-travels.index')->with('error', 'Something went wrong');
         }
     }
 }

@@ -27,7 +27,7 @@
                             </a>
                             <ul class="submenu child">
                                 <li><a href="{{ route('tips-and-travels.index') }}"> Tips & Travels Page</a></li>
-                                <li><a href="javascript:;"> Tips & Travels Comment </a></li>
+                                <li><a href="{{ route('tips-and-travels.comments') }}"> Tips & Travels Comment </a></li>
                             </ul>
                         </li>
 
@@ -46,7 +46,19 @@
                         <li><a href="{{ route('team.index') }}"> Team</a></li>
                         <li><a href="{{ route('faq.index') }}"> FAQ's</a></li>
                         <li><a href="{{ route('legal-page.index') }}"> Legal Pages Content</a></li>
-                        <li><a href="{{ route('contact.index') }}"> Contact Pages Content</a></li>
+
+                        <li class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle">
+                                <span class="micon fa fa-plane"></span><span class="mtext">Contact us</span>
+                            </a>
+                            <ul class="submenu child">
+                                <li><a href="{{ route('contact.index') }}"> Contact Pages Content</a></li>
+                                <li><a href="{{ route('contact.enquires') }}"> Contact Us Enquiry </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
                         <li><a href="{{ route('footer.index') }}"> Footer Pages Content</a></li>
                     </ul>
                 </li>

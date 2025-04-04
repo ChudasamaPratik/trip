@@ -56,7 +56,6 @@ class ContactController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('about.index')->with('error', 'Something went wrong');
         }
-
     }
 
     /**
@@ -189,6 +188,49 @@ class ContactController extends Controller
                 'success' => false,
                 'message' => 'Failed to change About status!'
             ]);
+        }
+    }
+
+    public function contactEnquires(Request $request)
+    {
+        try {
+            if ($request->ajax()) {
+                $data = Contact::latest()->get();
+                return DataTables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('actions', function ($row) {
+                        return '
+                        <div class="dropdown">
+                            <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                <i class="dw dw-more"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                <a class="dropdown-item delete" href="' . route('contact.destroy', $row->id) . '">
+                                    <i class="dw dw-delete-3"></i> Delete
+                                </a>
+                            </div>
+                        </div>';
+                    })
+                    ->editColumn('message', function ($row) {
+                        if (!empty($row->message)) {
+                            $truncatedMessage = Str::limit($row->message, 30);
+                            $fullMessage = htmlspecialchars($row->message, ENT_QUOTES);
+
+                            if (strlen($row->message) > 30) {
+                                return "<span class='truncated-message' data-full='{$fullMessage}'>{$truncatedMessage} <a href='#' class='read-more-link'>Read More</a></span>";
+                            }
+
+                            return $truncatedMessage;
+                        } else {
+                            return '-';
+                        }
+                    })
+                    ->rawColumns(['actions', 'message'])
+                    ->make(true);
+            }
+            return view('backend.pages.site.contact.enquiry');
+        } catch (\Exception $e) {
+            return redirect()->route('about.index')->with('error', 'Something went wrong');
         }
     }
 }
