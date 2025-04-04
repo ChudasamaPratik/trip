@@ -2,7 +2,9 @@
 
 
 use App\Http\Controllers\Backend\AboutController;
+use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\Backend\AuctionController;
+use App\Http\Controllers\Backend\BidController;
 use App\Http\Controllers\Backend\BidOnTravelController;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\ContactController;
@@ -13,6 +15,7 @@ use App\Http\Controllers\Backend\HomeBannerController;
 use App\Http\Controllers\Backend\HowItWorkController;
 use App\Http\Controllers\Backend\LegalPageController;
 use App\Http\Controllers\Backend\PermissionController;
+use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\TeamController;
@@ -136,4 +139,13 @@ Route::prefix('admin')->group(function () {
     //Contact
     Route::resource('contact', ContactController::class);
     Route::post('contact/change-status/{id}', [ContactController::class, 'changeStatus'])->name('contact.change.status');
+
+    // Bid
+    Route::resource('bid', BidController::class);
+    Route::post('bid/change-status/{id}', [BidController::class, 'changeStatus'])->name('bid.change.status');
+
+    // Admin Profile
+    Route::get('/profile', [AdminProfileController::class, 'index'])->name('admin-profile.index');
+    Route::put('/profile/update', [AdminProfileController::class, 'updateProfile'])->name('profile.update');
+    Route::put('/profile/update-password', [AdminProfileController::class, 'updatePassword'])->name('profiles.update-password');
 });

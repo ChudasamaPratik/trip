@@ -16,15 +16,18 @@
             <div class="dropdown">
                 <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                     <span class="user-icon">
-                        <img src="{{ asset('backend/vendors/images/photo1.jpg') }}" alt="" />
+                        <img src="{{ auth()->user()->image_url }}" alt="" />
                     </span>
-                    <span class="user-name">Ross C. Lopez</span>
+                    <span
+                        class="user-name">{{ auth()->user()->first_name && auth()->user()->last_name ? auth()->user()->first_name . ' ' . auth()->user()->last_name : 'Admin' }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                    <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
+                    <a class="dropdown-item" href="{{ route('admin-profile.index') }}"><i class="dw dw-user1"></i>
+                        Profile</a>
                     <a class="dropdown-item" href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
-                                 document.getElementById('logout-form').submit();"><i class="dw dw-logout"></i> Log Out</a>
+                        onclick="event.preventDefault();
+                                 document.getElementById('logout-form').submit();"><i
+                            class="dw dw-logout"></i> Log Out</a>
 
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
