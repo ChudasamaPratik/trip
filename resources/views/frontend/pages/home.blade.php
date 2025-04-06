@@ -100,16 +100,6 @@
                                         <i class="mt-1 fa fa-users"></i>
                                     </div>
                                     <div class="form-group  form-icon">
-                                        <!-- <select name="custom-select-2" class="selectpicker form-control" tabindex="1">
-                                                                                                                        <option value="0">Economy</option>
-                                                                                                                        <option value="1">0</option>
-                                                                                                                        <option value="2">1</option>
-                                                                                                                        <option value="3">2</option>
-                                                                                                                        <option value="4">3</option>
-                                                                                                                        <option value="5">4</option>
-                                                                                                                       </select>
-                                                                                                                       <i class="mt-1 fa fa-money"></i> -->
-
                                         <div class="range-slider">
                                             <div data-min="0" data-max="40000" data-unit="&#8377;"
                                                 data-min-name="min_price" data-max-name="max_price"
@@ -129,14 +119,6 @@
                             </div>
                             <div class="col-lg-2 col-md-12">
                                 <div class="table_item table-item-slider">
-                                    <!-- <div class="range-slider">
-                                                                                                                       <div data-min="0" data-max="2000" data-unit="&#8377;" data-min-name="min_price" data-max-name="max_price" class="range-slider-ui ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
-                                                                                                                        <span class="min-value">0 &#8377;</span>
-                                                                                                                        <span class="max-value">2000 &#8377;</span>
-                                                                                                                        <div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 0%; width: 100%;"></div>
-                                                                                                                       </div>
-                                                                                                                       <div class="clearfix"></div>
-                                                                                                                      </div> -->
                                     <div class="search pt-3">
                                         <a href="javascript:void(0)" class="btn-blue btn-red">SUBMIT</a>
                                     </div>
@@ -162,17 +144,19 @@
                     <div class="col-lg-4">
                         <div class="package-item">
                             <div class="package-image">
-                                <img src="{{ asset('frontend/images/6273853ab509aau1.jpg') }}" alt="Image">
+                                <img src="{{ $auction->image_url }}" alt="Image">
                                 <div class="package-price">
-                                    <p><i>&#8377; 2659</i> <small>/ Ends in 7 days</small> </p>
+                                    <p><i>&#8377; {{ $auction->price }}</i> <small>/ Ends in {{ $auction->days }}
+                                            days</small> </p>
                                 </div>
                             </div>
                             <div class="package-content">
-                                <h3>Koonwarra Holiday Park</h3>
-                                <p class="package-days"><i class="flaticon-time"></i> 7 days</p>
-                                <p>This is a sample of dummy copy text often used to show page</p>
+                                <h3>{{ $auction->title }}</h3>
+                                <p class="package-days"><i class="flaticon-time"></i> {{ $auction->days }} days</p>
+                                <p>{!! Str::limit($auction->description1, 80) !!}</p>
                                 <div class="package-info">
-                                    <a href="auctions-detail.php?id=4" class="btn-blue btn-red">Bid Now</a>
+                                    <a href="{{ route('auction.details', $auction->id) }}" class="btn-blue btn-red">Bid
+                                        Now</a>
                                 </div>
                             </div>
                         </div>
@@ -186,7 +170,7 @@
         <div class="bucket-icons">
             <div class="container">
                 <div class="section-title text-center">
-                    <h2>Latest Bids </h2>
+                    <h2>Latest Bids</h2>
                     <div class="section-icon">
                         <i class="flaticon-diamond"></i>
                     </div>
@@ -195,112 +179,31 @@
         </div>
         <div class="bucket-content">
             <div class="container">
-                <div class="row isotopeContainer">
+                <div class="row isotopeContainer d-flex justify-content-center">
 
+                    @forelse($data['bids']  as $bid)
+                        <div class="col-lg-6 no-padding isotopeSelector family">
+                            <div class="hovereffect-bucket bucket-item">
+                                <div class="bucket-image">
+                                    <img src="{{ $bid->image_url }}" alt="{{ $bid->title }}" class="img-responsive">
+                                </div>
+                                <div class="bucket-item-content">
+                                    <h3><a href="javascript:void(0)">{{ $bid->title }}</a></h3>
+                                    <span class="text-success"> &#8377; {{ $bid->price }}</span>
+                                    <span>{{ $bid->category }}</span>
 
-                    <div class="col-lg-6 no-padding isotopeSelector family">
-                        <div class="hovereffect-bucket bucket-item">
-                            <div class="bucket-image"><img src="{{ asset('frontend/images/627bb75e15fd5bucket4.jpg') }}"
-                                    alt="image" class="img-responsive"></div>
-                            <div class="bucket-item-content">
-                                <h3><a href="javascript:void(0)">Antrim Villa, Cape Town: 3 nights for 2</a></h3>
-                                <span class="text-success"> &#8377; 3000</span><span>Daily Tour</span>
-
-                                <a href="" class="btn-blue btn-red" onclick="showAlert()">Bid Now</a>
-
+                                    <a href="#" class="btn-blue btn-red">
+                                        Bid Now
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-lg-6 no-padding isotopeSelector family">
-                        <div class="hovereffect-bucket bucket-item">
-                            <div class="bucket-image"><img src="{{ asset('frontend/images/627bb69135bfdbucket2.jpg') }}"
-                                    alt="image" class="img-responsive"></div>
-                            <div class="bucket-item-content">
-                                <h3><a href="javascript:void(0)">Kruger Kumba: 2 nights for 2</a></h3>
-                                <span class="text-success"> &#8377; 2400</span><span>Daily Tour</span>
-
-                                <a href="" class="btn-blue btn-red" onclick="showAlert()">Bid Now</a>
-
-                            </div>
+                    @empty
+                        <div class="col-12 text-center">
+                            <p>No bids available at the moment. Check back soon!</p>
                         </div>
-                    </div>
+                    @endforelse
 
-                    <div class="col-lg-6 no-padding isotopeSelector family">
-                        <div class="hovereffect-bucket bucket-item">
-                            <div class="bucket-image"><img src="{{ asset('frontend/images/627b6927d5e7dbucket2.jpg') }}"
-                                    alt="image" class="img-responsive"></div>
-                            <div class="bucket-item-content">
-                                <h3><a href="javascript:void(0)">Makalali River Lodge: 2 nights for 4</a></h3>
-                                <span class="text-success"> &#8377; 2600</span><span>Daily Tour</span>
-
-                                <a href="" class="btn-blue btn-red" onclick="showAlert()">Bid Now</a>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 no-padding isotopeSelector family">
-                        <div class="hovereffect-bucket bucket-item">
-                            <div class="bucket-image"><img src="{{ asset('frontend/images/627bb5926c022bucket1.jpg') }}"
-                                    alt="image" class="img-responsive"></div>
-                            <div class="bucket-item-content">
-                                <h3><a href="javascript:void(0)">Bundox Safari Lodge: 2 nights for 2</a></h3>
-                                <span class="text-success"> &#8377; 2400</span><span>Daily Tour</span>
-
-                                <a href="" class="btn-blue btn-red" onclick="showAlert()">Bid Now</a>
-
-                            </div>
-                        </div>
-                    </div>
-                    <!-- <div class="col-lg-6 no-padding isotopeSelector  family">
-                                                                                                                   <div class="hovereffect-bucket bucket-item">
-                                                                                                                    <div class="bucket-image"><img src="images/bucket2.jpg" alt="image" class="img-responsive"></div>
-                                                                                                                    <div class="bucket-item-content">
-                                                                                                                     <h3><a href="javascript:void(0)">Bundox Safari Lodge: 2 nights for 2</a></h3>
-                                                                                                                     <span class="text-success"> &#8377; 20,500</span><span>Daily Tour</span>
-                                                                                                                    </div>
-                                                                                                                   </div>
-                                                                                                                  </div>
-                                                                                                                  
-                                                                                                                  <div class="col-lg-6 no-padding isotopeSelector family">
-                                                                                                                   <div class="hovereffect-bucket bucket-item">
-                                                                                                                    <div class="bucket-image"><img src="images/bucket3.jpg" alt="image" class="img-responsive"></div>
-                                                                                                                    <div class="bucket-item-content">
-                                                                                                                     <h3><a href="javascript:void(0)">Kruger Kumba: 4 nights for 6</a></h3>
-                                                                                                                     <span class="text-success"> &#8377; 20,500</span><span>Daily Tour</span>
-                                                                                                                    </div>
-                                                                                                                   </div>
-                                                                                                                  </div>
-                                                                                                                  <div class="col-lg-6 no-padding isotopeSelector  family">
-                                                                                                                   <div class="hovereffect-bucket bucket-item">
-                                                                                                                    <div class="bucket-image"><img src="images/bucket4.jpg" alt="image" class="img-responsive"></div>
-                                                                                                                    <div class="bucket-item-content">
-                                                                                                                     <h3><a href="javascript:void(0)">Antrim Villa, Cape Town: 3 nights for 2</a></h3>
-                                                                                                                     <span class="text-success"> &#8377; 20,500</span><span>Daily Tour</span>
-                                                                                                                    </div>
-                                                                                                                   </div>
-                                                                                                                  </div>
-
-
-                                                                                                                  <div class="col-lg-6 no-padding isotopeSelector family">
-                                                                                                                   <div class="hovereffect-bucket bucket-item">
-                                                                                                                    <div class="bucket-image"><img src="images/bucket5.jpg" alt="image" class="img-responsive"></div>
-                                                                                                                    <div class="bucket-item-content">
-                                                                                                                     <h3><a href="javascript:void(0)">Makalali River Lodge: 2 nights for 2</a></h3>
-                                                                                                                     <span class="text-success"> &#8377; 20,500</span><span>Daily Tour</span>
-                                                                                                                    </div>
-                                                                                                                   </div>
-                                                                                                                  </div>
-                                                                                                                  <div class="col-lg-6 no-padding isotopeSelector  family">
-                                                                                                                   <div class="hovereffect-bucket bucket-item">
-                                                                                                                    <div class="bucket-image"><img src="images/bucket6.jpg" alt="image" class="img-responsive"></div>
-                                                                                                                    <div class="bucket-item-content">
-                                                                                                                     <h3><a href="javascript:void(0)">Bundox Safari Lodge: 2 nights for 2</a></h3>
-                                                                                                                     <span class="text-success"> &#8377; 20,500</span><span>Daily Tour</span>
-                                                                                                                    </div>
-                                                                                                                   </div>
-                                                                                                                  </div> -->
                 </div>
                 <div class="section-overlay"></div>
             </div>
@@ -438,7 +341,7 @@
                                     <p><i class="fa fa-clock-o"></i> Posted On : {{ $blog->created_at->format('d M, Y') }}
                                     </p>
                                 </div>
-                                <h3><a href="#">{{ $blog->title }}</a></h3>
+                                <h3><a href="{{ route('blog.details', $blog->id) }}">{{ $blog->title }}</a></h3>
                                 <p>{!! Str::limit($blog->description, 120) !!}</p>
                             </div>
                         </div>

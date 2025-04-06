@@ -55,7 +55,7 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="about-item">
                                 <div class="about-icon">
-                                    <i class="{{ $item->icon ?? 'fa fa-user' }}" aria-hidden="true"></i>
+                                    <i class="fa fa-user" aria-hidden="true"></i>
                                 </div>
                                 <div class="about-content">
                                     <h3>{{ $item->title ?? 'Step ' . ($key + 1) }}</h3>

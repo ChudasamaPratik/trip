@@ -53,13 +53,16 @@
         </div>
     </div> --}}
 
-    @includeIf('backend.includes.header')
+    @include('backend.includes.header')
 
     @include('backend.includes.sidebar')
 
     <div class="main-container">
         <div class="xs-pd-20-10 pd-ltr-20">
-            @yield('content')
+            <div style="min-height: 720px; !important">
+
+                @yield('content')
+            </div>
             @include('backend.includes.footer')
         </div>
     </div>

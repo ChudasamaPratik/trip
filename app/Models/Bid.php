@@ -19,4 +19,9 @@ class Bid extends Model
         }
         return asset('storage/noimage.png');
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
 }
