@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\Backend\AdminProfileController;
+use App\Http\Controllers\Backend\AgentController;
 use App\Http\Controllers\Backend\AuctionController;
 use App\Http\Controllers\Backend\BidController;
 use App\Http\Controllers\Backend\BidOnTravelController;
@@ -16,12 +17,15 @@ use App\Http\Controllers\Backend\HowItWorkController;
 use App\Http\Controllers\Backend\LegalPageController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\ProfileController;
+use App\Http\Controllers\Backend\QuotationRequestController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\TeamController;
 use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\Backend\TipsAndTravelsController;
 use App\Http\Controllers\Backend\UserManagementController;
+use App\Http\Controllers\Backend\UserRequirementController;
+use App\Http\Controllers\Backend\UserRequirementsController;
 use App\Http\Controllers\Frontend\WebSiteController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -38,23 +42,38 @@ Route::get('/bid-on-travel', [WebSiteController::class, 'bidOnTravel'])->name('b
 Route::get('/faq', [WebSiteController::class, 'faq'])->name('faq');
 Route::get('/contact-us', [WebSiteController::class, 'contactUs'])->name('contact-us');
 Route::post('/contact-us', [WebSiteController::class, 'contactUsStore'])->name('contact-us.store');
+Route::get('blog/{id}', [WebSiteController::class, 'blogDetails'])->name('blog.details');
 
 Auth::routes();
 
-Route::get('/user/dashboard', function () {
-    return view('backend.pages.user_dashboard');
-})->name('user.dashboard')->middleware(['auth', 'role:user']);
-
-Route::get('/agent/dashboard', function () {
-    return view('backend.pages.agent_dashboard');
-})->name('agent.dashboard')->middleware(['auth', 'role:agent']);
-
-// Route::prefix('user')->group(function () {
-
-//     Route::get('/user/dashboard', function () {
+Route::prefix('user')->middleware(['auth', 'role:user'])->group(function () {
+//     Route::get('/dashboard', function () {
 //         return view('backend.pages.user_dashboard');
 //     })->name('user.dashboard');
-// });
+
+    //Requirement
+    Route::resource('requirement', UserRequirementController::class);
+});
+
+
+Route::prefix('user')->group(function () {
+
+    Route::get('/user/dashboard', function () {
+        return view('backend.pages.user_dashboard');
+    })->name('user.dashboard');
+});
+
+Route::prefix('agent')->middleware(['auth', 'role:agent'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('backend.pages.agent_dashboard');
+    })->name('agent.dashboard');
+
+    Route::get('quotation-request', [QuotationRequestController::class, 'quotationRequestIndex'])->name('quotation.request.index');
+    Route::get('quotation-request/create/{id}', [QuotationRequestController::class, 'createQuotation'])->name('quotation.request.create');
+    Route::post('quotation-request/store/{id}', [QuotationRequestController::class, 'storeQuotation'])->name('quotation.request.store');
+    Route::get('quotation/request/show/{id}', [QuotationRequestController::class, 'showQuotation'])->name('quotation.request.show');
+});
+
 
 
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
@@ -153,4 +172,10 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/profile', [AdminProfileController::class, 'index'])->name('admin-profile.index');
     Route::put('/profile/update', [AdminProfileController::class, 'updateProfile'])->name('profile.update');
     Route::put('/profile/update-password', [AdminProfileController::class, 'updatePassword'])->name('profiles.update-password');
+
+    //User Requirement
+    Route::get('requirements', [UserRequirementsController::class, 'index'])->name('requirements.index');
+    Route::get('/requirements/{id?}/quotations', [UserRequirementsController::class, 'requirementQuotations'])->name('requirements.quotations');
+    Route::post('requirement/assign-agents', [UserRequirementsController::class, 'assignAgents'])->name('requirement.assign.agents');
+    Route::get('agents/list', [UserRequirementsController::class, 'getAgentsList'])->name('agents.list');
 });

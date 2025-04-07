@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\AboutSection;
 use App\Models\Auction;
+use App\Models\Bid;
 use App\Models\BidTravelsSection;
 use App\Models\Blog;
 use App\Models\Contact;
@@ -31,6 +32,7 @@ class WebSiteController extends Controller
             $data['sliders'] = Slider::active()->latest()->get();
             $data['auctions'] = Auction::active()->latest()->get();
             $data['featured_destinations'] = Destination::active()->latest()->get();
+            $data['bids'] = Bid::active()->latest()->get();
             $data['banner'] = HomeBanner::active()->latest()->get();
             $data['testimonials'] = Testimonial::latest()->get();
             $data['blog'] = Blog::active()->latest()->get();
@@ -133,7 +135,7 @@ class WebSiteController extends Controller
     {
         try {
             $data['bidOnTravel'] = BidTravelsSection::active()->latest()->get();
-            $data['howItWorks'] = HowItWork::active()->latest()->get();
+            $data['howItWorks'] = HowItWork::active()->get();
             $data['faqs'] = Faq::active()->latest()->get();
             return view('frontend.pages.bid-on-travel', compact('data'));
         } catch (Exception $e) {
@@ -193,6 +195,23 @@ class WebSiteController extends Controller
                 'success' => false,
                 'message' => 'An error occurred while processing your request. Please try again later.'
             ], 500);
+        }
+    }
+
+    public function blogDetails(string $id)
+    {
+        try {
+            $blog = Blog::findOrFail($id);
+
+            $recentBlogs = Blog::where('id', '!=', $id)
+                ->active()
+                ->orderBy('created_at', 'desc')
+                ->take(6)
+                ->get();
+
+            return view('frontend.pages.blog-detail', compact('blog', 'recentBlogs'));
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong: ' . $e->getMessage());
         }
     }
 }
