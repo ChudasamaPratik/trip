@@ -47,12 +47,20 @@ Route::get('blog/{id}', [WebSiteController::class, 'blogDetails'])->name('blog.d
 Auth::routes();
 
 Route::prefix('user')->middleware(['auth', 'role:user'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('backend.pages.user_dashboard');
-    })->name('user.dashboard');
+//     Route::get('/dashboard', function () {
+//         return view('backend.pages.user_dashboard');
+//     })->name('user.dashboard');
 
     //Requirement
     Route::resource('requirement', UserRequirementController::class);
+});
+
+
+Route::prefix('user')->group(function () {
+
+    Route::get('/user/dashboard', function () {
+        return view('backend.pages.user_dashboard');
+    })->name('user.dashboard');
 });
 
 Route::prefix('agent')->middleware(['auth', 'role:agent'])->group(function () {
@@ -65,6 +73,7 @@ Route::prefix('agent')->middleware(['auth', 'role:agent'])->group(function () {
     Route::post('quotation-request/store/{id}', [QuotationRequestController::class, 'storeQuotation'])->name('quotation.request.store');
     Route::get('quotation/request/show/{id}', [QuotationRequestController::class, 'showQuotation'])->name('quotation.request.show');
 });
+
 
 
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {

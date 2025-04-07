@@ -12,7 +12,6 @@ class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasRoles;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -64,7 +63,7 @@ class User extends Authenticatable
     public function getImageUrlAttribute()
     {
         if ($this->image) {
-            return asset('storage/adminProfile_image/' . $this->image);
+            return asset('storage/profile_image/' . $this->image);
         }
         return asset('storage/noimage.png');
     }
